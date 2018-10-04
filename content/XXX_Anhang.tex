@@ -1,5 +1,49 @@
 \newpage
 \appendix
+\section{Datenbankstruktur}\label{app-datenbank}
+    \begin{forest}
+        pic dir tree,
+        % where level=0{}{% folder icons by default; override using file for file icons
+        %   directory,
+        % },
+        [/
+            [users,directory
+                [user1,file
+                    [name]
+                    [categories,directory
+                        [categorie11,file
+                            [name]
+                            [total]
+                            [target]
+                            [...]
+                            [times,directory
+                                [2018-10-02T06:50:00.000Z,file
+                                    [minutes]
+                                    [started]
+                                    [stopped]
+                                ]
+                                [...]
+                            ]
+                        ]
+                        [...]
+                    ]
+                    [holidays,directory
+                        [holiday1,file
+                            [name]
+                            [startDay]
+                            [endDay]
+                            [isFullDay]
+                            [hours]
+                        ]
+                        [...]
+                    ]
+                ]
+            ]
+        ]
+    \end{forest}
+
+
+
 \section{Reflexion}\label{app-reflexion}
 Ausgangssituation: Entwicklung mit JS (kein Typescript). Bezüglich React Native ausschließlich die Vorkenntnisse aus der Vorlesung.
 

@@ -37,7 +37,6 @@ Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
         [screens]
         [utils]
     ]
-]
 \end{forest}
     \caption{Verzeichnisstruktur}
     \label{fig-verzeichnis}
@@ -119,32 +118,174 @@ Somit ergibt sich folgende Struktur:
 \subsection{Besonderheiten (Daniel)}
 \subsubsection{Login}
 Sicherstellung über Login-Decider
+Verweis auf Firebase login
 
 \subsubsection{Firebase}
+\paragraph{Login}
+Erklärung UID
+
 \paragraph{Datenspeicherung}
-Zum 
-Verbindung mit Firebase
+Wie bereits beschrieben werden die Daten im \textit{Cloud Firestore} gespeichert.
+Auf oberster Ebene werden Sammlungen angelegt.
+Eine solche Sammlung enthält beliebig viele Dokumente.
+Ein Dokument wiederum kann Daten in einem JSON-ähnlichen Format und weitere Sammlungen enthalten.
+So lässt sich die gesamte Daten aus wechselnden Sammlungen und Dokumenten strukturieren.
 
-Datenstruktur im Backend (Documents vs Collections)
+Die Struktur für diesen Programmentwurf ist in \autoref{app-datenbank} dargestellt und wird im folgenden beschrieben:
 
-Zugriffsberechtigungen
+Auf oberster Ebene werden unter der Sammlung \texttt{users} alle Benutzer eingeordnet.
+Für jeden der Benutzer wird ein Dokument mit dessen Firebase-UID angelegt.
+Diese Dokument besitzt ein Feld für den Namen des Nutzers,
+sowie die Sammlungen \texttt{categories} und \texttt{holidays}.
+
+\texttt{categories} enthält für jede Kategorie ein Dokument mit automatisch generierter ID angelegt.
+In diesem Dokument befinden sich neben dem Namen alle für die Zeiterfassung relevanten Daten.
+Auf diese wird im Verlauf dieser Arbeit genauer eingegangen.
+Außerdem enthält eine Kategorie-Dokument die Sammlung \texttt{times}.
+Diese wiederum enthält für jede getätigte Zeiterfassung ein Dokument mit Start- und Stoppzeit sowie den gesamten Minuten.
+
+Die Sammlung \texttt{holidays} enthält alle vom Nutzer gepflegten freie Tage mit den notwendigen Informationen.
+
+Um sicherzustellen, dass nur angemeldete Nutzer Zugriff auf ihre Daten haben,
+können sogenannte \textit{Regeln} angelegt werden.
+Die Regel für diesen Programmentwurf ist in \autoref{lst:firestore-rule} dargestellt.
+Über die ersten beiden Zeilen wird die Datenbank an sich addressiert.
+In durch die Zeilen 3 und 4 wird geprüft, ob die Nutzer-UID mit dem Titel des Dokuments übereinstimmt.
+ist dies der Fall, so werden Lese- und Schreibrechte gestattet.
+In Zeile 5 wird durch \lstinline[language=firestoreRule]{**} angegeben,
+dass die darauffolgende Regel für alle darunterliegenden Dokumente gilt.
+In diesem Fall wird die Regel aus Zeile 4 wiederholt.
+
+\lstinputlisting[
+    caption=Regeln für Firestore,
+    label=lst:firestore-rule,
+    language=firestoreRule,
+    float=ht
+]{firestoreRule.txt}
 
 
+Insgeamt besagt die Regel,
+dass ein angemeldeter Benutzer auf das zu seinem Benutzer zugehörige Dokument,
+sowie alle darunterliegenden Dokumente volle Schreib- und Leseberechtigungen erhält.
+Für eine produktive Anwendung könnten diese Regeln noch ergänzt werden.
+Beispielsweise sind strengere Regeln zur Einhaltung der Datanbankstruktur oder Validierungen der eingegebenen Daten denkbar.
+Für die Entwicklung eines Prototyps sind solch strenge Regeln allerdings eher hinderlich.
 
+\subsubsection{Freie Tage (Lea)}
 
 \subsubsection{Ablauf der Zeiterfassung}
 Ablaufdiagramm mit Beschreibung
 
-\subsubsection{Zeitberechnungen, Timer}
+\subsubsection{Zeitberechnungen}
 Berechnungen mit Moment
 
-Timer mit innerem State und ticker
+\subsubsection{Darstellung von Zeiten}
+Die Darstellung der Zeiten stellt eine designerische und eine technische Herausforderung.
+
+\paragraph{Design}
+Die Zeiten sollte so dargestellt werden,
+dass der Nutzer sie eindeutig verstehen kann und alle notwendigen Informationen erhält.
+Trennt mann beispielsweise die Zeiteinheiten immer mit einem Doppelpunkt und zeigt nicht immer die Sekunden an,
+so kann es zu Verwirrungen zwischen \enquote{12:23} als \enquote{12 Stunden 23 Minuten}
+und \enquote{12:23} als \enquote{12 Minuten 23 Sekunden} kommen.
+
+Um diese Ziele zu erreichen erfolgt die Darstellung nach den in \autoref{alg:darstellung-zeiten} beschriebenen Regeln.
+
+\begin{algorithm}
+    \caption{Darstellung von Zeiten}
+    \label{alg:darstellung-zeiten}
+    \uIf{Zeit $\geq$ 10 Tage}{
+        Darstellung: \enquote{$DD$d} \tcc*[r]{13d}
+    }
+    \uElseIf{Zeit $>$ 1.5 Tage}{
+        Darstellung: \enquote{$DD$d $HH$h} \tcc*[r]{04d 12h}
+    }
+    \Else{
+        \uIf{Doppelpunkt als Trenner}{
+            \If{Zeit $\geq$ 1 Stunde}{
+                Darstellung: \enquote{$HH$:$MM$:$SS$} \tcc*[r]{02:12:24}
+            }
+            \Else{
+                Darstellung: \enquote{$MM$:$SS$} \tcc*[r]{12:24}
+            }
+        }
+        \Else{
+            \If{Zeit $\geq$ 10 Stunden}{
+                Darstellung: \enquote{$HH$h $MM$m} \tcc*[r]{12h 13m}
+            }
+            \uElseIf{Zeit $\geq$ 1 Stunde}{
+                Darstellung: \enquote{$HH$h $MM$m $SS$s} \tcc*[r]{09h 24m 42s}
+            }
+            \Else{
+                Darstellung: \enquote{$MM$m $SS$s} \tcc*[r]{13m 37s}
+            }
+        }
+    }
+
+\end{algorithm}
+
+Hierdurch wird erreicht, dass bei Darstellung mit Doppelpunkt immer die Sekunden angezeit werden.
+Bei Zeiten über anderhalbt Tagen wird die Zeit überhaupt nicht mit Doppelpunkten dargestellt.
+In der alternativen Darstellung mit Buchstaben wird durch den Buchstaben die Zeiteinheit eindeutig zugeordnet.
+Daher kann hier bei entsprechend hohen Werten auf die Darstellung der kleineren Einheiten verzichtet werden.
+
+\paragraph{Technisch}
+Läuft gerade eine Zeitmessung so soll der aktuelle Stand auch dem Nutzer präsentiert werden.
+Hierbei soll sich der Wert logischerweise regelmäßig aktualisieren,
+was technisch bedeutet, dass die React-Komponente neu gezeichnet werden muss.
+Solch eine \enquote{Neu-Zeichnung} wird in React durch eine Änderung des States der Komponente erreicht.
+Durch Redux hat allerdings eigentlich keines der Komponenten einen State.
+Statdessen gibt es einen State für die gesamte Anwendung.
+
+In \cite{Timersin85:online} werden drei Alternativen vorgestellt um dieses Problem zu lösen:
+\begin{enumerate}
+    \item Die Komponente erhält einen internen State,
+    \item Es werden Redux-Actions für die Komponente angelegt und bei Bedarf gestartet oder gestoppt.
+    \item Ein Globaler Timer läuft im Hintergrund und die Komponente wird bei diesem Timer registiert.
+\end{enumerate}
+
+Da es sich in diesem Beispiel um eine reine Darstellung handelt,
+wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} auf den Anwendungsfall angepasst wird.
+\autoref{lst:timer} zeigt den Quellcode der Klasse \texttt{Timer} mit folgenden Aspekten:
+\begin{description}
+    \item[Props] Dies sind die Eigenschaften, welche vom Elternelement Übergeben werden.
+    \texttt{startTime} ist die Zeit, ab welcher der Timer läuft.
+    Wird auch die optionale \texttt{baseTime} gesetzt, so werden diese beiden verrechnet.
+    Zudem können an die Komponente alle Props übergeben werden, welche auch an eine Textkomponente üebrgeben werden.
+    Diese werden an die interne Textkomponente weitergereicht.
+    Die Props sind nicht veränderlich.
+    \item[State] Der State ist der veränderliche Teil der Komponente.
+    Er beinhaltet die \texttt{timerId} um den Timer wieder stoppen zu können,
+    sowie den darzustellenden Text.
+    \item[Ablauf]
+    Um den Text zu aktualisieren wird durchläuft die Komponente folgende Phasen:
+    \begin{enumerate}
+        \item Beim Erzeugen des Timers wird State initialisiert.
+        \item Sobald die Komponente Teil der Darzustellenden Komponenten wurde (\texttt{componentDidMount}),
+        wird ein Intervall gestartet, welcher sekündlich die \texttt{tick}-Methode aufruft.
+        \item In der \texttt{tick} wird der neu darzustellende Text ermittelt und der State aktualisiert.
+        \item Wird der Timer entfernt, so wird das Intervall gestoppt.
+    \end{enumerate}
+\end{description}
+
+\lstinputlisting[
+    caption={Timer.tsx},
+    label=lst:timer,
+    language=TypeScript,
+    firstnumber=5,
+    firstline=5
+]{Timer.tsx}
+
+
 
 \subsubsection{Dialoge, DatePicker}
 Losgelöst von Redux-State
 
 \subsubsection{Benachrichtigungen}
 Firebase Bibliothek für SCheduled Notifications
+Events
+
+Berechnungen der Zielzeit
 
 Verschiedene Listener in App.tsx
 

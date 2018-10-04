@@ -74,6 +74,22 @@
 \definecolor{delim}{RGB}{20,105,176}
 \colorlet{numb}{magenta!60!black}
 
+\lstdefinelanguage{TypeScript}{
+keywords={typeof, new, true, false, catch, function, return, null, catch,
+switch, var, if, in, while, do, else, case, break, number, string, Date},
+keywordstyle=\color{delim}\bfseries,
+ndkeywords={class, export, boolean, throw, implements, import, this, type, defaults, extends},
+ndkeywordstyle=\color{magenta}\bfseries,
+identifierstyle=\color{black},
+sensitive=false,
+morecomment=[s]{<}{>}, % Actually not a Comment but a Tag
+commentstyle=\color{red}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+morestring=[b]',
+morestring=[b]"
+}
+
+
 \lstdefinelanguage{json}{
     string=[s]{"}{"},
     stringstyle=\color{numb},
@@ -106,6 +122,24 @@
   morestring=[b]"
 }
 
+\lstdefinelanguage{firestoreRule}{
+  identifierstyle=\color{delim},
+  keywords={},
+  otherkeywords={% Operators
+    =, ==, /
+  },
+   % list of keywords
+   keywords= [2]{
+    service,
+    match,
+    allow,
+    for
+  },
+  keywordstyle=\color{purple},
+  keywordstyle=[2]\color{numb},
+  sensitive=false
+}
+
 \lstloadlanguages{Python,Java,bash}
 
 
@@ -117,7 +151,7 @@
 \SetCommentSty{mycommfont}
 
 % Runde Klammern um Bedingungen
-\SetKwIF{If}{ElseIf}{Else}{wenn~(}{)~dann}{sonst wenn}{dann}{Ende}
+\SetKwIF{If}{ElseIf}{Else}{wenn~(}{)~dann}{sonst wenn~(}{sonst}{}
 \SetKwFor{ForEach}{für jedes~(}{)~tue}{Ende}
 
 %Eingabe und Ausgabe Texte
