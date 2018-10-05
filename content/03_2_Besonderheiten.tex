@@ -189,40 +189,50 @@ Trennt mann beispielsweise die Zeiteinheiten immer mit einem Doppelpunkt und zei
 so kann es zu Verwirrungen zwischen \enquote{12:23} als \enquote{12 Stunden 23 Minuten}
 und \enquote{12:23} als \enquote{12 Minuten 23 Sekunden} kommen.
 
-Um diese Ziele zu erreichen erfolgt die Darstellung nach den in \autoref{alg:darstellung-zeiten} beschriebenen Regeln.
+Um diese Ziele zu erreichen erfolgt die Darstellung nach den in \autoref{fig:darstellung-zeiten} beschriebenen Regeln.
 
-\begin{algorithm}
+\begin{figure}[ht!]
+    \centering
+    \resizebox{\textwidth}{!}{
+        \input{assets/img/diagramme/ZeitDarstellung.latex}
+    }
     \caption{Darstellung von Zeiten}
-    \label{alg:darstellung-zeiten}
-    \uIf{Zeit $\geq$ 10 Tage}{
-        Darstellung: \enquote{$DD$d} \tcc*[r]{13d}
-    }
-    \uElseIf{Zeit $>$ 1.5 Tage}{
-        Darstellung: \enquote{$DD$d $HH$h} \tcc*[r]{04d 12h}
-    }
-    \Else{
-        \uIf{Doppelpunkt als Trenner}{
-            \If{Zeit $\geq$ 1 Stunde}{
-                Darstellung: \enquote{$HH$:$MM$:$SS$} \tcc*[r]{02:12:24}
-            }
-            \Else{
-                Darstellung: \enquote{$MM$:$SS$} \tcc*[r]{12:24}
-            }
-        }
-        \Else{
-            \If{Zeit $\geq$ 10 Stunden}{
-                Darstellung: \enquote{$HH$h $MM$m} \tcc*[r]{12h 13m}
-            }
-            \uElseIf{Zeit $\geq$ 1 Stunde}{
-                Darstellung: \enquote{$HH$h $MM$m $SS$s} \tcc*[r]{09h 24m 42s}
-            }
-            \Else{
-                Darstellung: \enquote{$MM$m $SS$s} \tcc*[r]{13m 37s}
-            }
-        }
-    }
+    \label{fig:darstellung-zeiten}
+\end{figure}
 
-\end{algorithm}
+
+% \begin{algorithm}
+%     \caption{Darstellung von Zeiten}
+%     \label{alg:darstellung-zeiten}
+%     \uIf{Zeit $\geq$ 10 Tage}{
+%         Darstellung: \enquote{$DD$d} \tcc*[r]{13d}
+%     }
+%     \uElseIf{Zeit $>$ 1.5 Tage}{
+%         Darstellung: \enquote{$DD$d $HH$h} \tcc*[r]{04d 12h}
+%     }
+%     \Else{
+%         \uIf{Doppelpunkt als Trenner}{
+%             \If{Zeit $\geq$ 1 Stunde}{
+%                 Darstellung: \enquote{$HH$:$MM$:$SS$} \tcc*[r]{02:12:24}
+%             }
+%             \Else{
+%                 Darstellung: \enquote{$MM$:$SS$} \tcc*[r]{12:24}
+%             }
+%         }
+%         \Else{
+%             \If{Zeit $\geq$ 10 Stunden}{
+%                 Darstellung: \enquote{$HH$h $MM$m} \tcc*[r]{12h 13m}
+%             }
+%             \uElseIf{Zeit $\geq$ 1 Stunde}{
+%                 Darstellung: \enquote{$HH$h $MM$m $SS$s} \tcc*[r]{09h 24m 42s}
+%             }
+%             \Else{
+%                 Darstellung: \enquote{$MM$m $SS$s} \tcc*[r]{13m 37s}
+%             }
+%         }
+%     }
+
+% \end{algorithm}
 
 Hierdurch wird erreicht, dass bei Darstellung mit Doppelpunkt immer die Sekunden angezeit werden.
 Bei Zeiten über anderhalbt Tagen wird die Zeit überhaupt nicht mit Doppelpunkten dargestellt.
@@ -277,13 +287,51 @@ wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} a
 ]{Timer.tsx}
 
 
-
 \subsubsection{Dialoge, DatePicker}
 Losgelöst von Redux-State
 
 \subsubsection{Benachrichtigungen}
-Firebase Bibliothek für SCheduled Notifications
-Events
+Zur Darstellung der lokalen Benachrichtigungen wird das \emph{React Native Firebase's Notifications}-Modul genutzt.
+Es bietet einfache Schnittstellen um Benachrichtigungen zu erzeugen,
+sie direkt anzuzeigen oder für einen bestimmten Zeitpunkt zu planen.
+Durch das Singleton \texttt{NavigationService} werden diese Schnittstellen weiter vereinfacht und auf den Anwendungsfall angepasst.
+Die Klasse hat hierbei zwei Aufgaben: Das Senden bzw. Planen von Benachrichtigungen und die Behandlung eingehender Benachrichtigungen:
+
+\paragraph{Senden und Planen von Benachrichtigungen}
+Hierfür werden verschiedene Funktionen zur Verfügung gestellt:
+\begin{description}
+    \item[buildNotification] erzeugt eine Benachrichtigung mit ID, Titel, Inhalt und Kanal
+        \footnote{Ein Kanal wird von Android genutzt um Benachrichtigungen zu klassifizieren. In dieser Anwenung wird lediglich ein Default-Kanal verwendet.}.
+    \item[scheduleNotification] erhält zusätzlich zu den obigen Informationen noch einen Zeitpunkt an welchem die Benachrichtigung erscheinen soll.
+    \item[cancelNotificationIfExists] wird genutzt, um eine bereits geplante Benachrichtigung abzubrechen. Hierfür erhält es die ID der Benachrichtigung.
+\end{description}
+
+\paragraph{Behandlung eingehender Benachrichtigungen}
+Bei der Behandlung eingehender Benachrichtigungen gilt es,
+verschiedene Situationen zu Betrachten und jeweils entsprechend zu reagieren \cite{Introduc87:online}.
+\begin{description}
+    \item[App wird durch eine Benachrichtigung gestartet]
+    Läuft die App nicht, so werden bereits geplante Benachrichtigungen durch das Betriebssystem angezeigt.
+    Klickt der Nutzer auf diese, so wird dadurch die App gestartet.
+    In der App wird dafür gesorgt, dass die Benachrichtigung entfernt wird.
+    
+    \item[App wird durch eine Benachrichtigung geöffnet]
+    Befindet sich die App im Hintergrund,
+    dann wird eine Benachrichtigung ebenfalls durch das Betriebssystem angezeigt.
+    Auch hier wird die Benachrichtigung durch die App entfernt.
+
+    \item[Eine Benachrichtigung wird bei aktiver App empfangen]
+    Ist die App aktiv, so wird eine Benachrichtigung zwar empfangen,
+    aber nicht automatisch durch das Betriebssystem angezeigt.
+    In diesem Fall geschieht dies durch Programmcode.
+    
+    \item[Benachrichtigung wird bei aktiver App angezeigt]
+    In diesem Fall wird bei aktiver Applikation eine Benachrichtigung angezeigt.
+    Bei lokalen Benachrichtigungen ist dies nur der Fall,
+    wenn die Applikation \enquote{bewusst} eine Benachrichtigung anzeigt.
+
+\end{description}
+
 
 Berechnungen der Zielzeit
 

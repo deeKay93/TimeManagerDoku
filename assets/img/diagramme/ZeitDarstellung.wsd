@@ -1,0 +1,40 @@
+@startuml ZeitDarstellung
+skinparam monochrome true
+skinparam shadowing false
+
+start
+if (Zeit > 10 Tage) then (Ja)
+    :DDd
+    (z.B. "13d");
+elseif (Zeit $>$ 1.5 Tage) then (Ja)
+    :DDd HHh
+    (z.B. "04d 20h");
+else
+    (A)
+    detach
+    (B)
+endif
+stop
+(A)
+if (Doppelpunkt als Trenner?) then (Ja)
+        if (Zeit >= 1 Stunde) then (Ja)
+            :HH:MM:SS
+            (z.B. "02:12:24");
+        else (Nein)
+            :MM:SS
+            (z.B. "12:24");
+        endif
+else (Nein)
+        if (Zeit >= 10 Stunden) then (Ja)
+            :HHh MMm
+            (z.B. "12h 13m");
+        elseif (Zeit >= 1 Stunde) then (Ja)
+            :HHh MMm SSs
+            (z.B. "09h 24m 42s");
+        else (Nein)
+            :MMm SSs
+            (z.B. "13m 37s");
+        endif
+endif
+(B)
+@enduml
