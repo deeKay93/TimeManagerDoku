@@ -1,126 +1,9 @@
-\subsection{Verzeichnisstruktur}
-In \autoref{fig-verzeichnis} sind die ersten zwei Ebenen der Verzeichnisstruktur dargestellt.
-Auf die Auflistung automatisch erstellter und nicht veränderter Dateien wird verzichtet.
-Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
-
-\begin{figure}[H]
-    \centering
-    \begin{forest}
-        pic dir tree,
-        where level=0{}{% folder icons by default; override using file for file icons
-          directory,
-        },
-      [/
-        [App.tsx,file]
-        [global.d.ts,file]
-        [index.js,file]
-        [android]
-        [ios]
-        [src]
-      ]
-   \end{forest}
-   \begin{forest}
-    pic dir tree,
-    where level=0{}{% folder icons by default; override using file for file icons
-      directory,
-    },
-    [/src
-        [store.ts,file]
-        [actions]
-        [api]
-        [assets]
-        [components]
-        [container]
-        [forms]
-        [reducers]
-        [sagas]
-        [screens]
-        [utils]
-    ]
-\end{forest}
-    \caption{Verzeichnisstruktur}
-    \label{fig-verzeichnis}
-\end{figure}
-
-\paragraph{Oberste Ebene}
-\begin{description}
-    \item[App.tsx]
-    App.tsx ist die Zentrale Datei der Applikation. In ihr wird:
-    \begin{itemize}
-        \item die Navigation initialisiert,
-        \item die Behandlung von Nachrichten eingerichtet,
-        \item die Anmeldung des Nutzers sichergestellt,
-        \item der Redux-Store mit der App verknüpft.
-    \end{itemize}
-    \item[global.d.ts]
-    Diese Datei wird genutzt um TypeScript-Typen der gesamten Anwendung zur Verfügung zu stellen.
-    Hierdurch wird die Arbeit mit komplexeren Datentypen erheblich erleichtert.
-    \item[index.js]
-    In der Datei wird die Anwendung \enquote{registiert}. Hierdurch werden die React-Native-Componenten mit der nativen Applikation verknüpft.
-    Diese automatisch generierte Funktion wird ergänzt durch einen sogenannten \emph{Polyfill}, der genutzt wird,
-    um fehlende JavaScript-Funktionalitäten zu ermöglichen. \cite{undefine14:online}
-    \item[android]
-    Dieser Ordner enthält den Quellcode für die native Android App.
-    Wird nativer Code - beispielsweise von React-Native-Firebase - genutzt,
-    so muss er hier hinzugefügt werden.
-    \item[ios]
-    Dieser Ordner ist das Pendant zu vorigem Ordner.
-    Da sich dieser Programmentwurf auf Android-Geräte beschränkt,
-    bleibt er von manuellen Eingriffen unberührt.
-    \item[src]
-    In diesem Ordner befindet sich der größte Teil des relevanten Quellcodes.
-    Dessen Inhalt wird im folgenden näher betrachtet.
-\end{description}
-
-\paragraph{src-Ordner}
-Die Aufteilung des \emph{src}-Ordners orientiert sich an dem verbreiteten \emph{Rails-style} \cite{CodeStru4:online}.
-Dies bedeutet, dass für jede \enquote{Art} von Bausteinen der Applikation ein eigener Ordner angelegt wird.
-Somit ergibt sich folgende Struktur:
-
-\begin{description}
-    \item[store.ts]
-    In der einzigen Datei direkt im src-Ordner werden die gesamten Reducer zum Redux-Store zusammengefasst und mit
-    Redux-Saga verknüpft.
-    \item[actions]
-
-    \item[api]
-    \item[assets]
-    \item[components]
-    \item[container]
-    \item[forms]
-    \item[reducers]
-    \item[sagas]
-    \item[screens]
-    \item[utils]
-\end{description}
-
-
-% \item Codestruktur UI
-% \begin{itemize}
-%     \item screens
-%     \item components
-%     \item forms
-%     \item container
-% \end{itemize}
-% \item Codestruktur Redux
-% \begin{itemize}
-%     \item reducer
-%     \item store
-%     \item action
-% \end{itemize}
-% \item Codestruktur Redux-Saga und Firebase
-% \begin{itemize}
-%     \item sagas
-%     \item api
-% \end{itemize}
-
-
-\subsection{Besonderheiten (Daniel)}
-\subsubsection{Login}
+\section{Besonderheiten (Daniel)}
+\subsection{Login}
 Sicherstellung über Login-Decider
 Verweis auf Firebase login
 
-\subsubsection{Firebase}
+\subsection{Firebase}
 \paragraph{Login}
 Erklärung UID
 
@@ -171,15 +54,15 @@ Für eine produktive Anwendung könnten diese Regeln noch ergänzt werden.
 Beispielsweise sind strengere Regeln zur Einhaltung der Datanbankstruktur oder Validierungen der eingegebenen Daten denkbar.
 Für die Entwicklung eines Prototyps sind solch strenge Regeln allerdings eher hinderlich.
 
-\subsubsection{Freie Tage (Lea)}
+\subsection{Freie Tage (Lea)}
 
-\subsubsection{Ablauf der Zeiterfassung}
+\subsection{Ablauf der Zeiterfassung}
 Ablaufdiagramm mit Beschreibung
 
-\subsubsection{Zeitberechnungen}
+\subsection{Zeitberechnungen}
 Berechnungen mit Moment
 
-\subsubsection{Darstellung von Zeiten}
+\subsection{Darstellung von Zeiten}
 Die Darstellung der Zeiten stellt eine designerische und eine technische Herausforderung.
 
 \paragraph{Design}
@@ -287,10 +170,10 @@ wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} a
 ]{Timer.tsx}
 
 
-\subsubsection{Dialoge, DatePicker}
+\subsection{Dialoge, DatePicker}
 Losgelöst von Redux-State
 
-\subsubsection{Benachrichtigungen}
+\subsection{Benachrichtigungen}
 Zur Darstellung der lokalen Benachrichtigungen wird das \emph{React Native Firebase's Notifications}-Modul genutzt.
 Es bietet einfache Schnittstellen um Benachrichtigungen zu erzeugen,
 sie direkt anzuzeigen oder für einen bestimmten Zeitpunkt zu planen.
@@ -314,7 +197,7 @@ verschiedene Situationen zu Betrachten und jeweils entsprechend zu reagieren \ci
     Läuft die App nicht, so werden bereits geplante Benachrichtigungen durch das Betriebssystem angezeigt.
     Klickt der Nutzer auf diese, so wird dadurch die App gestartet.
     In der App wird dafür gesorgt, dass die Benachrichtigung entfernt wird.
-    
+
     \item[App wird durch eine Benachrichtigung geöffnet]
     Befindet sich die App im Hintergrund,
     dann wird eine Benachrichtigung ebenfalls durch das Betriebssystem angezeigt.
@@ -324,7 +207,7 @@ verschiedene Situationen zu Betrachten und jeweils entsprechend zu reagieren \ci
     Ist die App aktiv, so wird eine Benachrichtigung zwar empfangen,
     aber nicht automatisch durch das Betriebssystem angezeigt.
     In diesem Fall geschieht dies durch Programmcode.
-    
+
     \item[Benachrichtigung wird bei aktiver App angezeigt]
     In diesem Fall wird bei aktiver Applikation eine Benachrichtigung angezeigt.
     Bei lokalen Benachrichtigungen ist dies nur der Fall,
