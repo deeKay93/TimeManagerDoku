@@ -8,11 +8,77 @@ Der größte Unterschied ist die Plattform, ReactJS ist für Web-Applikationen i
 Endgeräten. Aus diesem Grund lässt sich bei React Native auch Nativer Code einbinden. Dies ist leider bei komplexeren Funktionen zwingend notwendig. Um mit den React-Konzepten eine Applikation außerhalb des
 Browsers zu entwickeln ist demnach \textit{React-Native} notwendig. \cite{ReactJSvsReactNative:online}
 
-\subsection{Gesamtablauf und Zusammenspiel der Technologien}
-\todo[inline]{Diagramm Gesamtablauf}
-\todo[inline]{- React}
-\todo[inline]{- Redux}
-\todo[inline]{- Redux-Saga und Firebase}
+\subsection{Zusammenspiel der Technologien}
+In der Vorlesung wurde das Prinzip von React-Native erläutert. In \autoref{fig:ReduxReact} ist 
+der grobe Ablauf von React-Native in Ergänzung mit Redux dargestellt. Es ergibt sich ein Kreislauf der beispielsweise durch 
+eine Benutzeraktion getriggert wird. Das UI besteht aus Komponenten die jeweils einen eigenen State besitzen. Bei einer Benutzeraktion
+triggert UI eine deklarativ beschriebene Action, welche vom Reducer aufgefangen wird. 
+Der Reducer kümmert sich unter anderem darum, dass der Store der alle States beinhaltet aktualisiert wird. 
+Sobald sich ein State ändert wird das UI neu gerendert und der Benutzer sieht das Ergebnis seiner Aktion. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=15cm]{ReduxReactGrobAblauf.png}
+    \caption{Ablauf: Redux-React}
+    \label{fig:ReduxReact}
+\end{figure}
+
+Im folgenden werden die einzelnen Komponenten, einschließlich Redux-Saga, erläutert und 
+anschließend der detaillierte Ablauf beschrieben. 
+
+\paragraph{Store}
+Der Store enthät den kompletten \textit{State-Tree} das bedeutet, dass jede Veränderung 
+eines States im Store enthalten ist. Der Store ist damit der zentrale Knotenpunkt der 
+Applikation.
+
+\paragraph{Reducer}
+Die Reducer sorgen für die Prozessierung der Aktionen. Sie enthalten die Logik, die 
+durch eine Aktion ausgeführt werden soll. Sobald eine Aktion getriggert wird, wird diese vom 
+Reducer aufgefangen und eine Prozessur die unteranderem den Store aktualisiert wird ausgeführt.
+
+\paragraph{Actions}
+Die Aktionen sind rein deklarativ geschrieben. Das bededeutet sie enthalten keine Ausführlogik, 
+sondern werden lediglich definiert. Dazu gehört Typ, Interface und Parameter. 
+
+\paragraph{Api}
+Die Api enthält Methoden für die verschiedenen Zugriffe auf die Firebase-Datenbank. 
+Diese Methoden werden asynchron ausgeführt. Die Api stellt somit die Schnittstelle
+zu Firebase dar.
+
+\paragraph{Sagas}
+Da die Api-Funktionen asynchron ablaufen, ist für jede Aktion die einen Zugriff auf die 
+Datenbank erfordert eine Saga notwendig. Diese strukturiert die Aufrufe und beschreibt, 
+die Reihenfolge und triggert \textit{Erfolgsaktionen}. Diese können anschließend im Reducer
+verarbeitet werden. 
+
+\paragraph{Components}
+Die Komponenten können größtenteils aus den zuvor beschriebenen Bibliotheken verwendet werden. 
+Allerdings ist es oft notwendig spezielle Komponenten zu entwickeln. Die Komponenten besitzen 
+jeweils einen eigenen State, dieser wird jedoch nur in Ausnahmen verwedet, da das Statemanagement
+durch Redux in den Store verlagert ist. Die Komponenten besitzen allerdings \textit{props} über die 
+Daten an die Komponente übergeben werden können. 
+
+\paragraph{Container}
+Kontainer verküpfen den Redux-State mit dem \textit{props} der Komponenten. Für die Verknüpfung 
+kann der Kontainer zwei Methoden enthalten: 
+\begin{itemize}
+    \item \textit{MapStateToProps}: Diese Methode ist fast immer notwendig, da hier der State mit den \textit{props} verknüpft wird.
+    \item \textit{MapDispatchToProps}: Diese Methode ist nur dann notwendig, wenn die Komponente den State verändern kann. Beispielsweise bei einem Input-Field. 
+    Die Methode triggert eine Aktion die anschließend vom Reducer verarbeitet werden kann.
+\end{itemize}
+
+\paragraph{Screens}
+Die Screens gruppieren die Container und stellen diese in einer Oberfläche einem \textit{view} dar. 
+Zwischen den Screens läuft die Navigation ab. 
+
+\paragraph{Ablauf von Redux-Saga}
+\autoref{fig:ReduxSaga} stellt den Ablauf von Redux-Saga dar. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=15cm]{ReactReduxSaga.PNG}
+    \caption{Ablauf: Redux-Saga}
+    \label{fig:ReduxSaga}
+\end{figure}
 
 \subsection{Typescript}
 Typescript bietet die Möglichkeit typissierten JavaScript-Code zu schreiben.
