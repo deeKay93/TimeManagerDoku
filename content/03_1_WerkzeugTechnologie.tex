@@ -1,41 +1,75 @@
-\subsection{Werkzeug- und Technologieauswahl (Lea)}
-\subsubsection{React-Native}
-React-Native ist ein Framework für das Erstellen von Nativen 
-Applikationen mithilfe von JavaScript und basiert auf dem React Framework. 
+\subsection{Werkzeuge und Technologien (Lea)}
+\paragraph{React-Native}
 
-\begin{itemize}
-    \item Komponentenbasiert (Styling, State)
-    \item Deklarativ (Actions)
-    \
-\end{itemize}
-\subsubsection{TypeScript}
-\subsubsection{Redux}
-\subsubsection{Firebase und Redux-Saga}
-\todo[inline]{Werkzeug- und Technologieauswahl}
-\begin{itemize}
-    \item React-Native (eigentlicher Renderer)
-    \item TypeScript
-    \item redux
-    \item firebase und redux-saga
-\end{itemize}
+\todo[inline]{Unterschied React, React web React Native}
+\todo[inline]{Diagramm Gesamtablauf}
+\todo[inline]{- React}
+\todo[inline]{- Redux}
+\todo[inline]{- Redux-Saga und Firebase}
 
-\todo[inline]{Auswahlen/Entscheidungen für den Prototyp}
-\begin{itemize}
-    \item Übersicht über Bibliotheken
-    \begin{itemize}
-        \item React-Native (eigentlicher Renderer)
-        \item React (Componenten)
-        \item react-native-material-dialog (Dialoh material like)
-        \item react-native-firebase (Firebaseanbindung)
-        \item react-navigation (Navigation im UI)
-        \item react-redux (Verknüpfung von React und Redux)
-        \item redux (State Management)
-        \item redux-form (Einfache Formulare)
-        \item redux-saga (Asynchrone Aktionen)
-        \item moment (Zeitberechnung)
-        \item moment-duration-format (Formatierung von Dauer und Datum)
-        \item native-base (Ui-Componenten Material Like)
-    \end{itemize}
-    \item sehr viele modulare elemente
-    \item firebase ersetzt durch rnfirebase
-\end{itemize}
+
+\paragraph{Typescript}
+\todo[inline]{Typescript}
+\subsection{Verwendete Bibliotheken}
+Im folgenden Abschnitt, werden die in der Applikation verwendetetn Bibliotheken kurz vorgstellt.
+
+
+\paragraph{react}
+\todo[inline]{react}
+Komponenten
+\paragraph{react-native}
+eigentlicher Renderer
+
+\paragraph{react-native-firebase}
+\todo[inline]{react-native-firebase}
+Firebaseanbindung
+
+\paragraph{react-native-material-dialog}
+\todo[inline]{react-native-material-dialog}
+Dialog im Material Style
+
+\paragraph{react-navigation}
+\todo[inline]{react-navigation}
+Navigation im UI
+%https://reactnavigation.org/
+\paragraph{redux}
+\todo[inline]{redux}
+state Management
+
+\paragraph{react-redux}
+
+\todo[inline]{react-redux}
+Verknüpfung von React und Redux
+
+\paragraph{redux-form}
+\todo[inline]{redux-form}
+einfache Formulare
+Die Bibliothek \textit{redux-form} unterstützt beim Verwalten der Redux-States in Formularen.
+
+\paragraph{redux-saga}
+\todo[inline]{redux-saga}
+Asynchrone Aktionen
+
+\paragraph{moment}
+\textit{Moment.js} ist eine JavaScript-Bibliothek, die das Arbeiten mit Daten vereinfacht. Die Bibliothek ermöglicht es,
+ein Datum zu formatieren, validieren und zu manipulieren. Dies ist besonders hilfreich bei der Auswertung und Darstellung der
+Zeiterfassung. Das Datum muss hierzu in ein \textit{Moment} umgewandelt werden. \autoref{lst:moment-example} zeigt in einem kleinen Beispiel,
+wie die Bibliothek in der Applikation verwendet wurde.
+\lstinputlisting[
+    caption=Beispiel für Moment.js,
+    label=lst:moment-example,
+    language=Typescript,
+    float=ht
+]{moment.ts}
+
+\paragraph{moment-duration-format}
+Dies ist ein Plugin zusätzlich zu \textit{moment.js}. Dieses Plugin in notwendig, da die Dauer ein
+grunsätzlich anderes Format hat als ein Datum. Es ermöglicht beispielsweise die Umwandlung einer Anzahl Stunden in Minuten.
+In der Applikation wird dieses Format zur Darstellung der Zeiterfassungsergebnisse verwendet.
+
+
+
+\paragraph{native-base}
+\textit{NativeBase} ist ein Framework, das eine Schicht über React-Native darstellt. Das Framework bietet,
+Komponenten für React-Native, die plattformspezifische Designs umsetzen. Diese Komponenten werden für die meisten UI-Komponenten der App
+verwendet. %https://nativebase.io/
