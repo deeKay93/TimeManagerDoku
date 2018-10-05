@@ -1,11 +1,18 @@
 \section{Besonderheiten (Daniel)}
-\subsection{Login}
-Sicherstellung über Login-Decider
-Verweis auf Firebase login
-
 \subsection{Firebase}
-\paragraph{Login}
-Erklärung UID
+In dieser Applikation wird Firebase für die Authentifizierung,
+die Datenspeicherung, sowie Benachrichtigungen genutzt.
+Die ersten beiden Aspekte werden im folgenden vorgestellt.
+Die Benachrichtigungen weren in \autoref{sec:besonderheiten-benachrichtigung} genauer betrachtet.
+
+\paragraph{Authentifizierung}
+Die Authentifizierung erfolgt über die von Firebase (bzw. React Native Firebase) zur Verfügung gestellten Schnittstellen.
+Jeder Nutzer erhält bei Anmeldung eine UID, über welche er eindeutig identifiziert werden kann.
+
+Firebase unterstützt zur Anmeldung Anonym, E-Mail/Passwort, Telefon, Google, Play Spiele, Facebook, Twitter und GitHub.
+In dieser Anwendung wird jedoch nur von den ersten beiden Gebrauch gemacht.
+
+
 
 \paragraph{Datenspeicherung}
 Wie bereits beschrieben werden die Daten im \textit{Cloud Firestore} gespeichert.
@@ -17,7 +24,7 @@ So lässt sich die gesamte Daten aus wechselnden Sammlungen und Dokumenten struk
 Die Struktur für diesen Programmentwurf ist in \autoref{app-datenbank} dargestellt und wird im folgenden beschrieben:
 
 Auf oberster Ebene werden unter der Sammlung \texttt{users} alle Benutzer eingeordnet.
-Für jeden der Benutzer wird ein Dokument mit dessen Firebase-UID angelegt.
+Für jeden der Benutzer wird ein Dokument mit dessen UID angelegt.
 Diese Dokument besitzt ein Feld für den Namen des Nutzers,
 sowie die Sammlungen \texttt{categories} und \texttt{holidays}.
 
@@ -53,6 +60,62 @@ sowie alle darunterliegenden Dokumente volle Schreib- und Leseberechtigungen erh
 Für eine produktive Anwendung könnten diese Regeln noch ergänzt werden.
 Beispielsweise sind strengere Regeln zur Einhaltung der Datanbankstruktur oder Validierungen der eingegebenen Daten denkbar.
 Für die Entwicklung eines Prototyps sind solch strenge Regeln allerdings eher hinderlich.
+
+
+\subsection{Login}
+Die Authentifizierung an sich lässt sich dank Firebase unkompliziert umsetzen.
+Auch ein Formular, welches einem Nutzer gestattet sich anzumelden oder zu registieren ist einfach zu realisieren.
+
+Es bleiben somit noch zwei Aufgaben, welche es zu lösen gilt:
+Zum einen sollte ein bereits angemeldeter Benutzer sich an seinem Gerät nicht immer wieder neu anmelden müssen.
+Zum anderen sollte der Anwender erst nach Anmeldung Zugriff auf die inneren Funktionen erhalten.
+
+Ersteres ist standardmäßig in React Native Firebase vorgesehen.
+Ein Nutzer bleibt auch nach Beenden der App angemeldet.
+Beim Erneuten start muss dann überprüft werden, ob bereits ein Nutzer angemeldet ist.
+Dies geschieht über die Funktion \texttt{checkLoggedIn} (\autoref{lst:checkLoggedIn}),
+welche beim Start der Anwendung aufgerufen wird.
+Ist ein Nutzer angemeldet, so wird die Redux-Action \emph{userSignInSuccess},
+ansonten \emph{userSignOutSuccess} gefeuert.
+Die Applikation kann dann entsprechend reagieren.
+
+\lstinputlisting[
+    caption=checkLoggedIn,
+    label=lst:checkLoggedIn,
+    language=TypeScript,
+    float=ht
+]{checkLoggedIn.ts}
+
+Die Komponente \texttt{LoginDeciderComponent} (siehe \autoref{app-LoginDecider}) sorgt dafür,
+dass nur angemeldete Nutzer auf die eigentliche Applikation zugreifen können.
+Diese Komponente erhält den aktuellen Login-Status aus dem Redux-State und zeigt eine bestimmte Unterkomponente an.
+Die Zordnung zwischen Satus und Unterkomponente ist in \autoref{table:login-states} aufgelistet.
+Ein \text{Splash Screen} ist ein einfacher Bildschirm, welcher lediglich das Logo der Anwendung enthält.
+
+\begin{table}[h!]
+    \centering
+     \begin{tabular}{| l | c | c |}
+        \hline
+        Status      & Bedeutung                      & Unterkomponente \\
+        \hline\hline
+        checking    & Prüfung ob Nutzer angemeldet   & Splash Screen\\
+        \hline
+        logged in   & Nutzer ist angemeldet          & \multirow{2}{*}{Eigentliche Applikation}\\
+        \cline{1-2}
+        logging out & Nutzer wird abgemeldet         & \\
+        \hline
+        logged out  & Nutzer ist abgemeldet          & \multirow{2}{*}{Login Screen} \\
+        \cline{1-2}
+        logging in  & Nutzer wird angemeldet         & \\
+        \hline
+     \end{tabular}
+     \caption{Login Stati}
+     \label{table:login-states}
+\end{table}
+
+Insgesamt wird durch Kombination der beiden Lösungen sichergestellt,
+dass ein bereits angemeldeter Nutzer sich nicht nochmals anmelden muss (bzw. kann)
+und dass eine nicht angemeldeter Nutzer lediglich auf den Login zugreifen kann.
 
 \subsection{Freie Tage (Lea)}
 
@@ -174,7 +237,7 @@ wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} a
 \subsection{Dialoge, DatePicker}
 Losgelöst von Redux-State
 
-\subsection{Benachrichtigungen}
+\subsection{Benachrichtigungen}\label{sec:besonderheiten-benachrichtigung}
 Zur Darstellung der lokalen Benachrichtigungen wird das \emph{React Native Firebase's Notifications}-Modul genutzt.
 Es bietet einfache Schnittstellen um Benachrichtigungen zu erzeugen,
 sie direkt anzuzeigen oder für einen bestimmten Zeitpunkt zu planen.
@@ -237,6 +300,5 @@ Zusätzlich zu den implementierten Benachrichtigungen sind noch weitere denkbar.
 Beispielsweise könnte in regelmäßigien Abständen an Pausen erinnert werden
 oder nicht nur beim Erreichen von \enquote{0 Unterstunden},
 sondern auch beim Erreichen der Sollarbeitszeit für diesen Tag eine Benachrichtigung erfolgen.
-
 
 \todo[inline]{Ergebnis}
