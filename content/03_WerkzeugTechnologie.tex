@@ -18,7 +18,7 @@ Sobald sich ein State ändert wird das UI neu gerendert und der Benutzer sieht d
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{ReduxReactGrobAblauf.png}
+    \includegraphics[width=10cm]{ReduxReactGrobAblauf.png}
     \caption{Ablauf: Redux-React}
     \label{fig:ReduxReact}
 \end{figure}
@@ -72,7 +72,11 @@ Die Screens gruppieren die Container und stellen diese in einer Oberfläche eine
 Zwischen den Screens läuft die Navigation ab.
 
 \paragraph{Ablauf von Redux-Saga}
-\autoref{fig:ReduxSaga} stellt den Ablauf von Redux-Saga dar.
+\autoref{fig:ReduxSaga} stellt den Ablauf von Redux-Saga dar. Wird für eine Aktion ein Zugriff auf die Datenbank
+benötigt, so leitet der Reducer diese an die Redux-Saga weiter. Die Saga ruft die Methode der Api auf und wartet 
+die Antwort der Datenbank. Kommt die Anwort bei der Saga an, können weitere Aktionen ausgeführt werden und eine 
+\textit{Erfolgsmeldung} abgefeuert werden.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{ReactReduxSaga.PNG}
