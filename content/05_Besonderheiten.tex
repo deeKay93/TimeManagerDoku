@@ -58,6 +58,7 @@ Für die Entwicklung eines Prototyps sind solch strenge Regeln allerdings eher h
 
 \subsection{Ablauf der Zeiterfassung}
 Ablaufdiagramm mit Beschreibung
+Unterscheidung Intervall und Nicht
 
 \subsection{Zeitberechnungen}
 Berechnungen mit Moment
@@ -180,16 +181,15 @@ sie direkt anzuzeigen oder für einen bestimmten Zeitpunkt zu planen.
 Durch das Singleton \texttt{NavigationService} werden diese Schnittstellen weiter vereinfacht und auf den Anwendungsfall angepasst.
 Die Klasse hat hierbei zwei Aufgaben: Das Senden bzw. Planen von Benachrichtigungen und die Behandlung eingehender Benachrichtigungen:
 
-\paragraph{Senden und Planen von Benachrichtigungen}
+\subsubsection{Senden und Planen von Benachrichtigungen}
 Hierfür werden verschiedene Funktionen zur Verfügung gestellt:
 \begin{description}
-    \item[buildNotification] erzeugt eine Benachrichtigung mit ID, Titel, Inhalt und Kanal
-        \footnote{Ein Kanal wird von Android genutzt um Benachrichtigungen zu klassifizieren. In dieser Anwenung wird lediglich ein Default-Kanal verwendet.}.
+    \item[buildNotification] erzeugt eine Benachrichtigung mit ID, Titel, Inhalt und Kanal\footnote{Ein Kanal wird von Android genutzt um Benachrichtigungen zu klassifizieren. In dieser Anwenung wird lediglich ein Default-Kanal verwendet.}.
     \item[scheduleNotification] erhält zusätzlich zu den obigen Informationen noch einen Zeitpunkt an welchem die Benachrichtigung erscheinen soll.
     \item[cancelNotificationIfExists] wird genutzt, um eine bereits geplante Benachrichtigung abzubrechen. Hierfür erhält es die ID der Benachrichtigung.
 \end{description}
 
-\paragraph{Behandlung eingehender Benachrichtigungen}
+\subsubsection{Behandlung eingehender Benachrichtigungen}
 Bei der Behandlung eingehender Benachrichtigungen gilt es,
 verschiedene Situationen zu Betrachten und jeweils entsprechend zu reagieren \cite{Introduc87:online}.
 \begin{description}
@@ -212,12 +212,31 @@ verschiedene Situationen zu Betrachten und jeweils entsprechend zu reagieren \ci
     In diesem Fall wird bei aktiver Applikation eine Benachrichtigung angezeigt.
     Bei lokalen Benachrichtigungen ist dies nur der Fall,
     wenn die Applikation \enquote{bewusst} eine Benachrichtigung anzeigt.
-
 \end{description}
 
+\noindent
+Für jedes dieser Situationen wird im \texttt{NotificationService} ein sogenannte \emph{Listener} zur Verfügung gestellt.
+In der Hauptkomponente \texttt{App.tsx} werden diese beim Start registiert und bei Beendigung abgemeldet.
 
-Berechnungen der Zielzeit
+\subsubsection{Tatsächliche Benachrichtigungen}
+Wie auch schon bei der Zeiterfassung ist bei den Benachrichtigungen zwischen endloser und einer Intervall-Kategorien zu unterscheiden.
+Bei einer endlosen Zeiterfassung wird angenommen,
+dass man sich am Tagesbeginn im \enquote{Unterstunden-Bereich} befindet.
+Startet der Nutzer Zeitmessung wird ermittelt wie lange diese laufen muss,
+bis die Unterstunden \enquote{abgearbeitet} sind.
+Für diesen Zeitpunkt wird eine entsprechende Benachrichtigung geplant.
 
-Verschiedene Listener in App.tsx
+Im Fall der Intervall-Kategorie geschieht dies analog.
+Allerding berechnet wie lange die Messung laufen müsste,
+um ausgehend vom akutellen Stand das Ziel zu erreichen.
+
+In beiden Fällen wird die geplante Benachrichtigung abgebrochen,
+sobald der Nutzer die Zeiterfassung pausiert.
+
+Zusätzlich zu den implementierten Benachrichtigungen sind noch weitere denkbar.
+Beispielsweise könnte in regelmäßigien Abständen an Pausen erinnert werden
+oder nicht nur beim Erreichen von \enquote{0 Unterstunden},
+sondern auch beim Erreichen der Sollarbeitszeit für diesen Tag eine Benachrichtigung erfolgen.
+
 
 \todo[inline]{Ergebnis}
