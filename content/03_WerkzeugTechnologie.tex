@@ -15,61 +15,80 @@ Im folgenden Abschnitt, werden die in der Applikation verwendetetn Bibliotheken 
 
 
 \paragraph{react}
-\todo[inline]{react}
-Komponenten
+Da \textit{React Native} auf React basiert muss die React Bibliothek
+in dem Projekt verfügbar sein. Das Konzept und der Ablauf wurde zuvor beschrieben.
+Komponenten. \cite{React:online}
+
 \paragraph{react-native}
-eigentlicher Renderer
+\textit{React-Native} ist der Renderer, der aus dem JS-Code
+die für die plattformspezifische Darstellung benötigten Komponenten erstellt.
+\cite{ReactNative:online}
 
 \paragraph{react-native-firebase}
-\todo[inline]{react-native-firebase}
-Firebaseanbindung
+Diese Bibliothek sorgt für eine einfach Anbindung der App zu Firebase. Hier für wird eine leicht-gewichtige
+Schicht auf die Firebase SDK erstellt. Durch dieses Paket kann nach Konfiguration sehr leicht mit \textit{firebase.forestore()...}
+zugreifen.
+\cite{invertas78:online}
 
 \paragraph{react-native-material-dialog}
-\todo[inline]{react-native-material-dialog}
-Dialog im Material Style
+Native Base liefert leider keinen Dialog im Material Design wird die Komponente zusätzlich als Package
+importiert. Dieses Package liefert einen Dialog neben Items für den Inhalt eine \textit{onCancel} und
+\textit{onOk},  die die Handhabung des Dialogs sehr simple machen. Der \textit{react-native-material-dialog}
+wird in der Applikation für alle vorhandenen Dialoge verwendet.
+\cite{MaterialDialog:online}
 
 \paragraph{react-navigation}
-\todo[inline]{react-navigation}
-Navigation im UI
-%https://reactnavigation.org/
+Die \textit{react-navigation} bietet eine einfach zu verwendende Navigation für React Native.
+Diese Navigation wird in der Applikation für die Navigation über das Menü und für die Navigation
+direkt in bestimmte Screens. \cite{ReactNavigation:online}
+
 \paragraph{redux}
-\todo[inline]{redux}
-state Management
+\textit{Redux} bietet einen Container für die Verwaltung der States der einzelnen Komponenten.
+In einer React-Native App besitzt jede Komponente einenen eigenen State. Um die Verwaltung dieser
+States zu vereinfachen, wird Redux verwedendet. Das Konzept von Redux wurde bereits zuvor beschrieben.
+\cite{Redux:online}
 
 \paragraph{react-redux}
-
-\todo[inline]{react-redux}
-Verknüpfung von React und Redux
+Dieses Package ist notwendig, um Redux in einer React Native App zu verwenden und so die Vorteile von
+Redux zu nutzen. Das Packege verküpft also React Native und Redux.
+\cite{ReactRedux:online}
 
 \paragraph{redux-form}
-\todo[inline]{redux-form}
-einfache Formulare
 Die Bibliothek \textit{redux-form} unterstützt beim Verwalten der Redux-States in Formularen.
+Dem Entwickler werden durch diese Bibliothek sehr viele Schritte abgenommen. Für die Formulare
+gibt es einen eigenen \textit{Formreduce}, dieser aktualisiert die zu einer Action gehörenden States.
+Der neue Status wird anschließend an das Feld, dass die Aktion gefeuert hat zurück gereicht. Dieser
+Ablauf ist in \autoref{fig:ReduxForm} dargestellt. \cite{ReduxForm:online}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{ReduxFormDiagram.png}
+    \caption{Ablauf: Redux-Form}
+    \label{fig:ReduxForm}
+\end{figure}
 
 \paragraph{redux-saga}
-\todo[inline]{redux-saga}
-Asynchrone Aktionen
+\textit{Redux-Saga} wird für asynchrone Aktionen verwendet. Diese finden in dieser
+App beim Zugriff auf Firebase statt. \cite{ReduxSaga:online}
 
 \paragraph{moment}
 \textit{Moment.js} ist eine JavaScript-Bibliothek, die das Arbeiten mit Daten vereinfacht. Die Bibliothek ermöglicht es,
 ein Datum zu formatieren, validieren und zu manipulieren. Dies ist besonders hilfreich bei der Auswertung und Darstellung der
 Zeiterfassung. Das Datum muss hierzu in ein \textit{Moment} umgewandelt werden. \autoref{lst:moment-example} zeigt in einem kleinen Beispiel,
-wie die Bibliothek in der Applikation verwendet wurde.
-% \lstinputlisting[
-%     caption=Beispiel für Moment.js,
-%     label=lst:moment-example,
-%     language=Typescript,
-%     float=ht
-% ]{moment.ts}
+wie die Bibliothek in der Applikation verwendet wurde.\cite{MomentJS:online}
+\lstinputlisting[
+    caption=Beispiel für Moment.js,
+    label=lst:moment-example,
+    language=Typescript,
+    float=ht
+]{moment.ts}'
 
 \paragraph{moment-duration-format}
 Dies ist ein Plugin zusätzlich zu \textit{moment.js}. Dieses Plugin in notwendig, da die Dauer ein
 grunsätzlich anderes Format hat als ein Datum. Es ermöglicht beispielsweise die Umwandlung einer Anzahl Stunden in Minuten.
-In der Applikation wird dieses Format zur Darstellung der Zeiterfassungsergebnisse verwendet.
-
-
+In der Applikation wird dieses Format zur Darstellung der Zeiterfassungsergebnisse verwendet. \cite{MomentDuration:online}
 
 \paragraph{native-base}
 \textit{NativeBase} ist ein Framework, das eine Schicht über React-Native darstellt. Das Framework bietet,
 Komponenten für React-Native, die plattformspezifische Designs umsetzen. Diese Komponenten werden für die meisten UI-Komponenten der App
-verwendet. %https://nativebase.io/
+verwendet. \cite{NativeBase:online}
