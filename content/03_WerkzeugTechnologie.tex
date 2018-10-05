@@ -1,18 +1,31 @@
-\section{Werkzeuge und Technologien (Lea)}
-\paragraph{React-Native}
+\section{Werkzeuge und Technologien}
+\subsection{Unterschied zwischen ReactJs und ReactNative}
+ReactJs und ReactNative haben zwar sehr viele Gemeinsamkeiten, jedoch auch einige Unterschiede, die vor der Entwicklung mit React Native bewusst sein sollten.
+Während ReactJs eine JavaScript-Bibliothek ist, ist ReactNative ein vollständiges Framework. Dies bedeutet, dass bereits beim Setup alles mitgeliefert wird, was für die
+Entwicklung notwendig ist. Ein weiterer Unterschied ist der DOM und das Styling. Während die Komponenten in ReactJS meist als HTML gerendert werden, wird bei React-Native
+\textit{JSX} verwendet. JSX ermöglicht eine XML-Beschreibung von Komponenten direkt im JavaScript-Code.\\
+Der größte Unterschied ist die Plattform, ReactJS ist für Web-Applikationen in Browsern entwickelt. Aus diesem Grund auch der HTML-Code. React-Native ist speziell für Native Applikationen auf
+Endgeräten. Aus diesem Grund lässt sich bei React Native auch Nativer Code einbinden. Dies ist leider bei komplexeren Funktionen zwingend notwendig. Um mit den React-Konzepten eine Applikation außerhalb des
+Browsers zu entwickeln ist demnach \textit{React-Native} notwendig. \cite{ReactJSvsReactNative:online}
 
-\todo[inline]{Unterschied React, React web React Native}
+\subsection{Gesamtablauf und Zusammenspiel der Technologien}
 \todo[inline]{Diagramm Gesamtablauf}
 \todo[inline]{- React}
 \todo[inline]{- Redux}
 \todo[inline]{- Redux-Saga und Firebase}
 
+\subsection{Typescript}
+Typescript bietet die Möglichkeit typissierten JavaScript-Code zu schreiben.
+Durch die Typisierung wird die Entwicklung strukturierter und Objekte werden,
+klar definiert. \\
+Neben der einfachen Typisierung bietet Typescript weitere Möglichkeiten, die aus
+objektorierentierten Programmiersprachen, wie Java, bekannt sind. Dies sind beispielsweise
+Interfaces und Klassen. \\
+Die Verwendung von Typescript bietet sich bei der Entwicklung von React-Native-Apps an,
+da das Framework die Typisierungen sehr gut unterstützt und auch die Unterstützung der React-Native-Community sehr groß ist. \cite{TypescriptReasons:online}
 
-\paragraph{Typescript}
-\todo[inline]{Typescript}
 \subsection{Verwendete Bibliotheken}
 Im folgenden Abschnitt, werden die in der Applikation verwendetetn Bibliotheken kurz vorgstellt.
-
 
 \paragraph{react}
 Da \textit{React Native} auf React basiert muss die React Bibliothek
@@ -69,7 +82,7 @@ Ablauf ist in \autoref{fig:ReduxForm} dargestellt. \cite{ReduxForm:online}
 
 \paragraph{redux-saga}
 \textit{Redux-Saga} wird für asynchrone Aktionen verwendet. Diese finden in dieser
-App beim Zugriff auf Firebase statt. \cite{ReduxSaga:online}
+App beim Zugriff auf Firebase statt. \cite{ReduxSaga:online,}
 
 \paragraph{moment}
 \textit{Moment.js} ist eine JavaScript-Bibliothek, die das Arbeiten mit Daten vereinfacht. Die Bibliothek ermöglicht es,
