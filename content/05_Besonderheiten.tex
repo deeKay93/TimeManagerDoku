@@ -119,9 +119,76 @@ und dass eine nicht angemeldeter Nutzer lediglich auf den Login zugreifen kann.
 
 \subsection{Freie Tage (Lea)}
 
-\subsection{Ablauf der Zeiterfassung}
-Ablaufdiagramm mit Beschreibung
-Unterscheidung Intervall und Nicht
+\subsection{Zeiterfassung}
+Die Zeiterfassung ist die zentrale Funktion der Anwendung.
+Hauptsächlich wird diese über das Starten und Stoppen der Zeitmessung einer bestimmten Kategorie durchgeführt.
+Es ist aber auch möglich Zeiten manuell zu erfassen.
+Außerdem ist es notwendig die Gesamtzeit Applikationsseitig anzupassen.
+So muss bei Intervall-Kategorien die Gesamtzeit regelmäßig zurückgesetzt werden
+und bei Endlos-Kategorien die Gesamtzeit um die entsprechenden Sollstunden reduziert werden.
+
+\paragraph{Starten der Zeitmessung}
+Beim Starten der Zeitmessung einer Kategorie wird diese Tatsache,
+sowie der Zeitpunkt gespeichert.
+Zusätzlich wird das Senden von Benachrichtigungen vorbereitet (siehe \autoref{sec:besonderheiten-benachrichtigung}).
+Durch das Speichern wird sichergestellt, dass die Zeitmessung geräteunabhängig abläuft.
+
+\paragraph{Stoppen der Zeitmessung}
+Stoppt der Nutzer die Zeitmessung,
+so wird aus Start- und Stoppzeit der Messung die vergangene Zeit berechnet.
+Diese wird zur Gesamtzeit hinzuaddiert.
+
+\paragraph{Manuelle Erfassung}
+Bei der manuellen Zeiterfassung muss zwischen Intervall- und Endlos-Kategorien unterschieden werden.
+Während bei Endlos-Kategorien die Gesamtzeit einfach weiter erhöht werden kann,
+muss bei Intervallen zunächst geprüft werden,
+ob sich die manuell erfasste Zeit innerhalb des aktuellen Intervalls befindet.
+Ansonsten wird die Erfassung zwar hinzugefügt,
+die Gesamtzeit ändert sich allerdings nicht.
+
+\paragraph{Anpassung der Gesamtzeit}
+Zur Anpassung der Gesamtzeit erhält jede Kategorie ein Feld \emph{lastUpdated}.
+Dieses enthält den Tag, an welchem die Gesamtzeit zuletzt durch die Applikation angepasst wurde.
+Bei Intervall-Kategorien entspricht dies dem Tag, an welchem sie zuletzt zurückgesetzt wurde.
+Bei endlosen Kategorien dem letzen Tag, an welchem das letze Mal die Anapassung stattfand.
+
+Jedes Mal, wenn die Daten der Kategorien aus der Datenbank geladen werden,
+wird für jede Kategorie eine Überprüfung und Anapassung durchgeführt.
+Für endlose Kategorien geschieht dies nach \autoref{fig:anpassung-endlos},
+für Intervall-Kategorien nach \autoref{fig:anpassung-intervall}.
+\begin{figure}[ht!]
+    \centering
+    \resizebox{0.5\textwidth}{!}{
+        \input{assets/img/diagramme/ZeitAnspassungIntervall.latex}
+    }
+	\caption{Anapssung der Gesamtzeit einer Intervall-Kategorie}
+    \label{fig:anpassung-intervall}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}{0.5\textwidth}
+        \resizebox{0.9\linewidth}{!}{
+            \input{assets/img/diagramme/ZeitAnspassungEndless.latex}
+        }
+		\caption{Rahmenablauf}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+        \resizebox{0.9\linewidth}{!}{
+            \input{assets/img/diagramme/ZeitAnspassungEndlessA.latex}
+        }
+		\caption{Schleife}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+        \resizebox{\linewidth}{!}{
+            \input{assets/img/diagramme/ZeitAnspassungEndlessC.latex}
+        }
+		\caption{Überprüfung Urlaubstage}
+	\end{subfigure}
+	\caption{Anapssung der Gesamtzeit einer endlosen Kategorie}
+	\label{fig:anpassung-endlos}
+\end{figure}
+
+
 
 \subsection{Zeitberechnungen}
 Berechnungen mit Moment
@@ -129,7 +196,7 @@ Berechnungen mit Moment
 \subsection{Darstellung von Zeiten}
 Die Darstellung der Zeiten stellt eine designerische und eine technische Herausforderung.
 
-\paragraph{Design}
+\subsubsection{Design}
 Die Zeiten sollte so dargestellt werden,
 dass der Nutzer sie eindeutig verstehen kann und alle notwendigen Informationen erhält.
 Trennt mann beispielsweise die Zeiteinheiten immer mit einem Doppelpunkt und zeigt nicht immer die Sekunden an,
@@ -186,7 +253,7 @@ Bei Zeiten über anderhalbt Tagen wird die Zeit überhaupt nicht mit Doppelpunkt
 In der alternativen Darstellung mit Buchstaben wird durch den Buchstaben die Zeiteinheit eindeutig zugeordnet.
 Daher kann hier bei entsprechend hohen Werten auf die Darstellung der kleineren Einheiten verzichtet werden.
 
-\paragraph{Technisch}
+\subsubsection{Technisch}
 Läuft gerade eine Zeitmessung so soll der aktuelle Stand auch dem Nutzer präsentiert werden.
 Hierbei soll sich der Wert logischerweise regelmäßig aktualisieren,
 was technisch bedeutet, dass die React-Komponente neu gezeichnet werden muss.

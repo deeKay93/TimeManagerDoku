@@ -1,0 +1,67 @@
+@startuml ZeitAnspassungIntervall
+skinparam monochrome true
+skinparam shadowing false
+
+start
+:Berechne aus lastUpdate den
+Tag für nächstes Zurücksetzen;
+if (Ist dieser Tag heute oder in der Vergangenheit?) then (Ja)
+    :Setze Gesamtzeit zurück;
+    :Setze lastUpdate auf heute;
+endif
+stop
+
+@enduml
+
+@startuml ZeitAnspassungEndless
+skinparam monochrome true
+skinparam shadowing false
+start
+if (Ist lastUpdate = heute?) then (Ja)
+
+else (Nein)
+    :Berechne die Sollzeit eines Arbeitstages;
+    :Setze lastChecked auf lastUpdate;
+    (A)
+    detach
+    (B)
+endif
+stop
+@enduml
+
+
+@startuml ZeitAnspassungEndlessA
+skinparam monochrome true
+skinparam shadowing false
+(A)
+repeat
+:Erhöhe lastChecked um einen Tag;
+if (Ist lastChecked ein Arbeitstag?) then (Ja)
+    (C)
+    detach
+    (D)
+else (Nein)
+
+endif
+repeat while (more data?)
+(B)
+@enduml
+
+
+@startuml ZeitAnspassungEndlessC
+skinparam monochrome true
+skinparam shadowing false
+(C)
+if (Ist lastChecked kein Urlaubstag) then (Ja)
+    :Reduziere Gesamtzeit um
+    Sollzeit eines Arbeitstages;
+elseif (Ist der Urlaubstag ein ganzer Tag?) then (Ja)
+    :Ändere Gesamtzeit nicht;
+else (nein)
+    :Reduziere Sollzeit dieses
+    Tages um die freie Zeit;
+    :Reduziere Gesamtzeit um
+    Sollzeit dieses Arbeitstages;
+endif
+(D)
+@enduml
