@@ -4,36 +4,45 @@ so ist festzustellen, dass alle grundeleged erfüllt sind.
 Ebenso ist jedoch anzumerken, dass es in jedem Aspekt potential zur Verbesserung und Erweiterung gibt.
 
 \paragraph{Benutzerverwaltung}
-Benutzer wird per Mail oder Anonym angelegt
-Kann Seinen Namen Ändern
-Problem: Mail-Nutzer nicht wieder löschbar
+Benutzer können sich per E-Mail und Passwort registrieren und anmelden oder einen anonymen Zugang nutzen.
+Allerdings wird lediglich der anonyme Nutzer beim Abmelden gelöscht.
+Ein registrierter Nutzer kann nach aktuellem Stand nicht wieder entfernt werden.
 
 \paragraph{Konfiguration verschiedener Zeiterfassungskategorien}
-Kategorien und Erfassungsfreit Tage können gepflegt (deutsche sogar importiert) werden.
-Problem: Nicht wieder löschbar, Freie Tage nur in Zukunft (wegen Berechnungen)
+Intervall- und endlose Kategorien, sowie erfassungsfreie Tage können in der Applikation angelegt werden.
+Bei Kategorien ist zudem eine Anpassung der Einstellungen möglich.
+Es gibt jedoch auch hier Einschränkungen: So können weder Kategorien, noch erfassungsfreie Tage gelöscht,
+noch freie Tage in der Vergangenheit angelegt werden.
 
 \paragraph{Zeiterfassung}
-Start /Stop und Manuell/nachträglich geht (auch in Vergangenheit).
-Problem: Überschneidungen möglich. Intensives Testen um Randfälle zu betrachten (z.B. Zeiterfassung über INtervallgrenze hinaus)
+Der Anwender kann die Zeit einer Kategorie durch Starten und Stoppen der Zeitmessung und ebenfalls manuell erfassen.
+Die manuelle Erfassung ist auch in der Vergangenheit möglich.
+Problematisch hierbei ist, dass nicht validiert wird, ob sich die Zeiten einer Kategorie überschneiden.
+Außerdem sollten insbesondere Randfälle wie das neue anlegen einer Kategorie oder die Messung über Intervallgrenzen hinaus intensiv gestestet werden.
 
 \paragraph{Darstellung der Ergebnisse}
-Nutzer erhält Tageweiße Übersicht und Details über jede erfassung.
-Probleme: Aktuell alle daten geladen (keine pagination), keine Information über Intervalle,
-Verschiedene Diagramme und GRanularitäten wünschenswert (z.B. Übersicht wann tägliche sollarbeitszeit erreicht wurde)
+In der App wird jeweils eine tageweiße Übersicht und die genauen Messungen einer Kategorie dargestellt.
+Wünschenswert sind hier weitere Darstellungungen.
+Beispielsweise Diagramme, Informationen über Intervalle und verschiedene Granularitäten sind hier denkbar.
+Ein weiteres Problem ist, dass die Erfaussungen immer komplett aus der Datenbank geladen werden.
+Ein stufenweißes Laden der Daten nach Bedarf (\emph{Pagination}) wäre hier eine Lösung.
 
 \paragraph{Datenspeicherung}
-Daten werden Online gespeichert,
-Firestore rechnet Dokumentenweiße ab -> Schreib- und Lesevorgänge optimieren
-Problem (löschen Fehlt)
+Wie gefordert werden die Daten online im Firestore von Firebase gespeichert.
+Hierbei ist anzumerken, dass die Abrechnung dokumentenweiße erfolgt.
+So ist die Anzahl der Lese-, Schreib- und Löschvorgänge im kostenlosen Plan limitiert.
+Auch wenn diese Kontingente für die Entwicklung und den Gebrauch in kleinem Rahmen ausreichen,
+sollte für produktive Applikationen untersucht werden,
+ob sich die Vorgänge durch geschichte Datenstrukturierung optimieren lassen.
 
+\paragraph{Ausblick}
+Grundlegend ist die App funktionsfähig.
+Damit sie auch produktiv eingesetzt werden kann gilt es zunächst,
+die bereits beschriebenen fehldenden Funktionen zu implementieren.
 
-Ausblick:
-Fehlende Funktionen implementieren
-Tests implementieren
-Nutzung auf mehreren Geräten
-Weitere Funktionen:
-    Export?
-    Unterkategorien? (z.B. Arbeit -> Mails, Meetings, ...)
-    Sortierung der Kategorien
+Zusätzlich sollte die Stabilität durch manuelle,
+aber auch automatisierte Tests sichergestellt werden.
 
-\todo[inline]{erzielte Artefakte in Strichaufzählung}
+Hat die Anwendung dann einen produktiven Status erreicht,
+so sind weitere Funktionalitäten wie die Nutzung auf mehreren Geräten, eine Exportfunktion,
+Unterkategorien oder die Unterstützung von iOS-Geräten Ddnkbar.
