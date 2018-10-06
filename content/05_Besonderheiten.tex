@@ -12,8 +12,6 @@ Jeder Nutzer erhält bei Anmeldung eine UID, über welche er eindeutig identifiz
 Firebase unterstützt zur Anmeldung Anonym, E-Mail/Passwort, Telefon, Google, Play Spiele, Facebook, Twitter und GitHub.
 In dieser Anwendung wird jedoch nur von den ersten beiden Gebrauch gemacht.
 
-
-
 \paragraph{Datenspeicherung}
 Wie bereits beschrieben werden die Daten im \textit{Cloud Firestore} gespeichert.
 Auf oberster Ebene werden Sammlungen angelegt.
@@ -117,18 +115,31 @@ Insgesamt wird durch Kombination der beiden Lösungen sichergestellt,
 dass ein bereits angemeldeter Nutzer sich nicht nochmals anmelden muss (bzw. kann)
 und dass eine nicht angemeldeter Nutzer lediglich auf den Login zugreifen kann.
 
-\subsection{Freie Tage (Lea)}
+\subsection{Freie Tage}
+Um freie Tage in die Berechnung der Gesamtzeit mit aufzunehmen, werden diese für jeden Benutzer individuell parallel zu
+den Kategorien gespeichert. Die freien Tage sind demnach nicht einer Kategorie sondern einem Benutzer zugeordnet. 
+Der Benutzer hat so die Möglichkeit beispielsweise Urlaubstage oder Feiertage einzupflegen.
+Die einzelnen Einträge besitzen folgende Eigenschaften: 
 \begin{itemize}
-    \item Übersicht: Darstellung in einer Liste (sortiert nach Datum)
-    \item Freie Tage erstellen 
-    \begin{itemize}
-        \item Manuell
-        \item importieren (Jahr und Bundesland)
-    \end{itemize}
-    \item Berechnung des Totals 
+    \item key
+    \item name
+    \item isFullDay
+    \item startDay
+    \item endDay
+    \item hours
 \end{itemize}
-Zum Verwalten der freien Tage
-
+Es gibt zwei verschiedene Arten von Einträgen.
+\begin{itemize}
+    \item \textbf{Vollständige Tage:} Hier wird von dem Benutzer ein Start-Datum und ein End-Datum angegeben. 
+    Dies vereinfacht die Handhabung von beispielsweise mehrtägigen Urlauben. 
+    Zusätzlich wird das Attribut \textit{isFullDay} gesetzt, 
+    dies vereinfacht die Unterscheidung der beiden Arten.
+    \item \textbf{Einzelne Stunden:} Der Benutzer hat hier die möglichkeit ein Datum zu wählen und eine Anzahl an Stunden anzugeben (\textit{hours}). 
+    Das angegebene Datum wird automatisch als \textit{startDay} und \textit{endDay} gesetzt. 
+    Dies ermöglicht das Pflegen von halben Tagen. 
+\end{itemize}Vollständige Tage werden über einen Zeitraum zwischen \textit{startDay} und \textit{endDay} definiert. 
+Zusammengefasst bedeutet dies, dass \textit{key, name, startDay, endDay, isFullDay} immer gesetzt ist und abhängig von \textit{isFullDay} zusätzlich \textit{hours}.
+Die freien Tage fließen auch in die Berechnung der Gesamtzeit und der Zielerreichung ein. Dies wird in \todo[inline]{Verweis auf Berechnung}
 
 \subsection{Zeiterfassung}
 Die Zeiterfassung ist die zentrale Funktion der Anwendung.
