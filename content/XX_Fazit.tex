@@ -1,11 +1,39 @@
 \section{Fazit (Daniel)}\label{sec:fazit}
-\todo[inline]{erreichte Ergebnisse}
+Betrachtet man die eingangs gestellten Anforderungen,
+so ist festzustellen, dass alle grundeleged erfüllt sind.
+Ebenso ist jedoch anzumerken, dass es in jedem Aspekt potential zur Verbesserung und Erweiterung gibt.
+
+\paragraph{Benutzerverwaltung}
+Benutzer wird per Mail oder Anonym angelegt
+Kann Seinen Namen Ändern
+Problem: Mail-Nutzer nicht wieder löschbar
+
+\paragraph{Konfiguration verschiedener Zeiterfassungskategorien}
+Kategorien und Erfassungsfreit Tage können gepflegt (deutsche sogar importiert) werden.
+Problem: Nicht wieder löschbar, Freie Tage nur in Zukunft (wegen Berechnungen)
+
+\paragraph{Zeiterfassung}
+Start /Stop und Manuell/nachträglich geht (auch in Vergangenheit).
+Problem: Überschneidungen möglich. Intensives Testen um Randfälle zu betrachten (z.B. Zeiterfassung über INtervallgrenze hinaus)
+
+\paragraph{Darstellung der Ergebnisse}
+Nutzer erhält Tageweiße Übersicht und Details über jede erfassung.
+Probleme: Aktuell alle daten geladen (keine pagination), keine Information über Intervalle,
+Verschiedene Diagramme und GRanularitäten wünschenswert (z.B. Übersicht wann tägliche sollarbeitszeit erreicht wurde)
+
+\paragraph{Datenspeicherung}
+Daten werden Online gespeichert,
+Firestore rechnet Dokumentenweiße ab -> Schreib- und Lesevorgänge optimieren
+Problem (löschen Fehlt)
+
+
+Ausblick:
+Fehlende Funktionen implementieren
+Tests implementieren
+Nutzung auf mehreren Geräten
+Weitere Funktionen:
+    Export?
+    Unterkategorien? (z.B. Arbeit -> Mails, Meetings, ...)
+    Sortierung der Kategorien
+
 \todo[inline]{erzielte Artefakte in Strichaufzählung}
-\todo[inline]{Ausblick}
-\begin{itemize}
-    \item Test
-    \item Firestore Dokumente optimieren (Schreib-/Lesevorgänge)
-     \item Löschen von Nutzer, Dokumenten, Kategorien
-    \item Sortierung Kategorien-
-    \item Löschen von Zeiteinträgen 
-\end{itemize}
