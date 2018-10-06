@@ -139,13 +139,14 @@ Es gibt zwei verschiedene Arten von Einträgen.
     Dies ermöglicht das Pflegen von halben Tagen. 
 \end{itemize}Vollständige Tage werden über einen Zeitraum zwischen \textit{startDay} und \textit{endDay} definiert. 
 Zusammengefasst bedeutet dies, dass \textit{key, name, startDay, endDay, isFullDay} immer gesetzt ist und abhängig von \textit{isFullDay} zusätzlich \textit{hours}.
-Die freien Tage fließen auch in die Berechnung der Gesamtzeit und der Zielerreichung ein. Dies wird in \todo[inline]{Verweis auf Berechnung}
+Die freien Tage fließen auch in die Berechnung der Gesamtzeit und der Zielerreichung ein.
+Dies wird in \autoref{subse:Zeiterfassung} beschrieben. 
 
-\subsection{Zeiterfassung}
+\subsection{Zeiterfassung}\label{subse:Zeiterfassung}
 Die Zeiterfassung ist die zentrale Funktion der Anwendung.
 Hauptsächlich wird diese über das Starten und Stoppen der Zeitmessung einer bestimmten Kategorie durchgeführt.
 Es ist aber auch möglich Zeiten manuell zu erfassen.
-Außerdem ist es notwendig die Gesamtzeit Applikationsseitig anzupassen.
+Außerdem ist es notwendig die Gesamtzeit applikationsseitig anzupassen. %Vorschlag : Die Gesamtzeit ist die Zeit die den aktuellen Status der Kategorie anzeigt.
 So muss bei Intervall-Kategorien die Gesamtzeit regelmäßig zurückgesetzt werden
 und bei Endlos-Kategorien die Gesamtzeit um die entsprechenden Sollstunden reduziert werden.
 
@@ -175,7 +176,7 @@ Bei Intervall-Kategorien entspricht dies dem Tag, an welchem sie zuletzt zurück
 Bei endlosen Kategorien dem letzen Tag, an welchem das letze Mal die Anapassung stattfand.
 
 Jedes Mal, wenn die Daten der Kategorien aus der Datenbank geladen werden,
-wird für jede Kategorie eine Überprüfung und Anapassung durchgeführt.
+wird für jede Kategorie eine Überprüfung und Anpassung durchgeführt.
 Für endlose Kategorien geschieht dies nach \autoref{fig:anpassung-endlos},
 für Intervall-Kategorien nach \autoref{fig:anpassung-intervall}.
 \begin{figure}[ht!]
