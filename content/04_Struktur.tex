@@ -42,7 +42,7 @@ Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
     \label{fig-verzeichnis}
 \end{figure}
 
-\paragraph{Oberste Ebene}
+\subsection{Oberste Ebene}
 \begin{description}
     \item[App.tsx]
     App.tsx ist die Zentrale Datei der Applikation. In ihr wird:
@@ -72,27 +72,31 @@ Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
     Dessen Inhalt wird im folgenden näher betrachtet.
 \end{description}
 
-\paragraph{src-Ordner}
+\subsection{src-Ordner}
 Die Aufteilung des \emph{src}-Ordners orientiert sich an dem verbreiteten \emph{Rails-style} \cite{CodeStru4:online}.
 Dies bedeutet, dass für jede \enquote{Art} von Bausteinen der Applikation ein eigener Ordner angelegt wird.
-Somit ergibt sich folgende Struktur:
 
-\begin{description}
-    \item[store.ts]
-    In der einzigen Datei direkt im src-Ordner werden die gesamten Reducer zum Redux-Store zusammengefasst und mit
-    Redux-Saga verknüpft.
-    \item[actions]
+Der Redux-Store wird in einer eigenen Datei \texttt{store.ts} verwaltet.
+Dort werden die Reducer und die Redux-Sage miteinander verknüpft.
 
-    \item[api]
-    \item[assets]
-    \item[components]
-    \item[container]
-    \item[forms]
-    \item[reducers]
-    \item[sagas]
-    \item[screens]
-    \item[utils]
-\end{description}
+Reducer, Aktionen, Komponenten, Container und Sagas befinden sich in ihren jeweiligen Ordnern.
+Dort werden sie nochmals nach ihren Anwendungsfällen (z.B. Authentifizierung, freite Tage, ...) geordnet.
+
+Im Ordner \texttt{api} werden alle Schnittstellen nach Außen gekapselt.
+So werden eventuell komplexere Schnittstellen abstrahiert.
+
+\texttt{assets} enthält alle \enquote{nicht-textuelle} Dateien wie Bilder oder Videos.
+In dieser Applikation ist dies aktuell auf das Logo beschränkt.
+
+Formulare stellen eine besondere Art von Komponenten dar.
+Sie werden durch die Funktionalitäten der Bibliothek \emph{redux-forms} verwaltet.
+Daher sind sie in einem separaten Ordner \texttt{forms} gesammelt.
+
+Die eigentlichen Seiten der Anwendung befinden sich in \texttt{screens}.
+
+Restliche Dateien werden im Ordner \texttt{utils} gelagert.
+Hierzu gehören beispielsweise Funktionalitäten, welche in verschiedenen Bereichen der Anwendung genutzt werden
+oder Klassen, welche die Funktionalität von verwendeten Bibliotheken kapseln.
 
 
 % \item Codestruktur UI
