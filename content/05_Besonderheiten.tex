@@ -3,17 +3,17 @@
 In dieser Applikation wird Firebase für die Authentifizierung,
 die Datenspeicherung, sowie Benachrichtigungen genutzt.
 Die ersten beiden Aspekte werden im folgenden vorgestellt.
-Die Benachrichtigungen weren in \autoref{sec:besonderheiten-benachrichtigung} genauer betrachtet.
+Die Benachrichtigungen werden in \autoref{sec:besonderheiten-benachrichtigung} genauer betrachtet.
 
 \paragraph{Authentifizierung}
 Die Authentifizierung erfolgt über die von Firebase (bzw. React Native Firebase) zur Verfügung gestellten Schnittstellen.
 Jeder Nutzer erhält bei Anmeldung eine UID, über welche er eindeutig identifiziert werden kann.
 
 Firebase unterstützt zur Anmeldung Anonym, E-Mail/Passwort, Telefon, Google, Play Spiele, Facebook, Twitter und GitHub.
-In dieser Anwendung wird jedoch nur von den ersten beiden Gebrauch gemacht.
+In dieser Anwendung wird die anonyme Anmeldung und die Anmeldung mit E-Mail/Passwort ermöglicht.
 
 \paragraph{Datenspeicherung}
-Wie bereits beschrieben werden die Daten im \textit{Cloud Firestore} gespeichert.
+Wie bereits beschrieben, werden die Daten im \textit{Cloud Firestore} gespeichert.
 Auf oberster Ebene werden Sammlungen angelegt.
 Eine solche Sammlung enthält beliebig viele Dokumente.
 Ein Dokument wiederum kann Daten in einem JSON-ähnlichen Format und weitere Sammlungen enthalten.
@@ -26,7 +26,7 @@ Für jeden der Benutzer wird ein Dokument mit dessen UID angelegt.
 Diese Dokument besitzt ein Feld für den Namen des Nutzers,
 sowie die Sammlungen \texttt{categories} und \texttt{holidays}.
 
-\texttt{categories} enthält für jede Kategorie ein Dokument mit automatisch generierter ID angelegt.
+\texttt{categories} enthält für jede Kategorie ein Dokument mit automatisch generierter ID.
 In diesem Dokument befinden sich neben dem Namen alle für die Zeiterfassung relevanten Daten.
 Auf diese wird im Verlauf dieser Arbeit genauer eingegangen.
 Außerdem enthält eine Kategorie-Dokument die Sammlung \texttt{times}.
@@ -37,8 +37,8 @@ Die Sammlung \texttt{holidays} enthält alle vom Nutzer gepflegten freie Tage mi
 Um sicherzustellen, dass nur angemeldete Nutzer Zugriff auf ihre Daten haben,
 können sogenannte \textit{Regeln} angelegt werden.
 Die Regel für diesen Programmentwurf ist in \autoref{lst:firestore-rule} dargestellt.
-Über die ersten beiden Zeilen wird die Datenbank an sich addressiert.
-In durch die Zeilen 3 und 4 wird geprüft, ob die Nutzer-UID mit dem Titel des Dokuments übereinstimmt.
+Über die ersten beiden Zeilen wird die Datenbank addressiert.
+Durch die Zeilen 3 und 4 wird geprüft, ob die Nutzer-UID mit dem Titel des Dokuments übereinstimmt.
 ist dies der Fall, so werden Lese- und Schreibrechte gestattet.
 In Zeile 5 wird durch \lstinline[language=firestoreRule]{**} angegeben,
 dass die darauffolgende Regel für alle darunterliegenden Dokumente gilt.
@@ -61,7 +61,7 @@ Für die Entwicklung eines Prototyps sind solch strenge Regeln allerdings eher h
 
 
 \subsection{Login}
-Die Authentifizierung an sich lässt sich dank Firebase unkompliziert umsetzen.
+Die Authentifizierung lässt sich dank Firebase unkompliziert umsetzen.
 Auch ein Formular, welches einem Nutzer gestattet sich anzumelden oder zu registieren ist einfach zu realisieren.
 
 Es bleiben somit noch zwei Aufgaben, welche es zu lösen gilt:
@@ -117,7 +117,7 @@ und dass eine nicht angemeldeter Nutzer lediglich auf den Login zugreifen kann.
 
 \subsection{Freie Tage}
 Um freie Tage in die Berechnung der Gesamtzeit mit aufzunehmen, werden diese für jeden Benutzer individuell parallel zu
-den Kategorien gespeichert. Die freien Tage sind demnach nicht einer Kategorie sondern einem Benutzer zugeordnet. 
+den Kategorien gespeichert. Die freien Tage sind demnach nicht einer Kategorie, sondern einem Benutzer zugeordnet. 
 Der Benutzer hat so die Möglichkeit beispielsweise Urlaubstage oder Feiertage einzupflegen.
 Die einzelnen Einträge besitzen folgende Eigenschaften: 
 \begin{itemize}
@@ -134,7 +134,7 @@ Es gibt zwei verschiedene Arten von Einträgen.
     Dies vereinfacht die Handhabung von beispielsweise mehrtägigen Urlauben. 
     Zusätzlich wird das Attribut \textit{isFullDay} gesetzt, 
     dies vereinfacht die Unterscheidung der beiden Arten.
-    \item \textbf{Einzelne Stunden:} Der Benutzer hat hier die möglichkeit ein Datum zu wählen und eine Anzahl an Stunden anzugeben (\textit{hours}). 
+    \item \textbf{Einzelne Stunden:} Der Benutzer hat hier die Möglichkeit ein Datum zu wählen und eine Anzahl an Stunden anzugeben (\textit{hours}). 
     Das angegebene Datum wird automatisch als \textit{startDay} und \textit{endDay} gesetzt. 
     Dies ermöglicht das Pflegen von halben Tagen. 
 \end{itemize}Vollständige Tage werden über einen Zeitraum zwischen \textit{startDay} und \textit{endDay} definiert. 
@@ -173,7 +173,7 @@ die Gesamtzeit ändert sich allerdings nicht.
 Zur Anpassung der Gesamtzeit erhält jede Kategorie ein Feld \emph{lastUpdated}.
 Dieses enthält den Tag, an welchem die Gesamtzeit zuletzt durch die Applikation angepasst wurde.
 Bei Intervall-Kategorien entspricht dies dem Tag, an welchem sie zuletzt zurückgesetzt wurde.
-Bei endlosen Kategorien dem letzen Tag, an welchem das letze Mal die Anapassung stattfand.
+Bei endlosen Kategorien dem letzen Tag, an welchem das letze Mal die Anpassung stattfand.
 
 Jedes Mal, wenn die Daten der Kategorien aus der Datenbank geladen werden,
 wird für jede Kategorie eine Überprüfung und Anpassung durchgeführt.
@@ -213,7 +213,7 @@ für Intervall-Kategorien nach \autoref{fig:anpassung-intervall}.
 
 
 \subsection{Darstellung von Zeiten}
-Die Darstellung der Zeiten stellt eine designerische und eine technische Herausforderung.
+Die Darstellung der Zeiten stellt eine designerische und eine technische Herausforderung darzustellende.
 
 \subsubsection{Design}
 Die Zeiten sollte so dargestellt werden,
@@ -267,18 +267,18 @@ Um diese Ziele zu erreichen erfolgt die Darstellung nach den in \autoref{fig:dar
 
 % \end{algorithm}
 
-Hierdurch wird erreicht, dass bei Darstellung mit Doppelpunkt immer die Sekunden angezeit werden.
+Hierdurch wird erreicht, dass bei Darstellung mit Doppelpunkt immer die Sekunden angezeigt werden.
 Bei Zeiten über anderhalbt Tagen wird die Zeit überhaupt nicht mit Doppelpunkten dargestellt.
 In der alternativen Darstellung mit Buchstaben wird durch den Buchstaben die Zeiteinheit eindeutig zugeordnet.
 Daher kann hier bei entsprechend hohen Werten auf die Darstellung der kleineren Einheiten verzichtet werden.
 
 \subsubsection{Technisch}
-Läuft gerade eine Zeitmessung so soll der aktuelle Stand auch dem Nutzer präsentiert werden.
+Läuft gerade eine Zeitmessung, so soll der aktuelle Stand auch dem Nutzer präsentiert werden.
 Hierbei soll sich der Wert logischerweise regelmäßig aktualisieren,
 was technisch bedeutet, dass die React-Komponente neu gezeichnet werden muss.
 Solch eine \enquote{Neu-Zeichnung} wird in React durch eine Änderung des States der Komponente erreicht.
 Durch Redux hat allerdings eigentlich keines der Komponenten einen State.
-Statdessen gibt es einen State für die gesamte Anwendung.
+Stattdessen gibt es einen State für die gesamte Anwendung.
 
 In \cite{Timersin85:online} werden drei Alternativen vorgestellt um dieses Problem zu lösen:
 \begin{enumerate}
@@ -294,17 +294,17 @@ wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} a
     \item[Props] Dies sind die Eigenschaften, welche vom Elternelement Übergeben werden.
     \texttt{startTime} ist die Zeit, ab welcher der Timer läuft.
     Wird auch die optionale \texttt{baseTime} gesetzt, so werden diese beiden verrechnet.
-    Zudem können an die Komponente alle Props übergeben werden, welche auch an eine Textkomponente üebrgeben werden.
+    Zudem können an die Komponente alle Props übergeben werden, welche auch an eine Textkomponente übergeben werden.
     Diese werden an die interne Textkomponente weitergereicht.
     Die Props sind nicht veränderlich.
     \item[State] Der State ist der veränderliche Teil der Komponente.
     Er beinhaltet die \texttt{timerId} um den Timer wieder stoppen zu können,
     sowie den darzustellenden Text.
     \item[Ablauf]
-    Um den Text zu aktualisieren wird durchläuft die Komponente folgende Phasen:
+    Um den Text zu aktualisieren, durchläuft die Komponente folgende Phasen:
     \begin{enumerate}
         \item Beim Erzeugen des Timers wird State initialisiert.
-        \item Sobald die Komponente Teil der Darzustellenden Komponenten wurde (\texttt{componentDidMount}),
+        \item Sobald die Komponente vollständig dargestellt wurde (\texttt{componentDidMount}),
         wird ein Intervall gestartet, welcher sekündlich die \texttt{tick}-Methode aufruft.
         \item In der \texttt{tick} wird der neu darzustellende Text ermittelt und der State aktualisiert.
         \item Wird der Timer entfernt, so wird das Intervall gestoppt.
@@ -340,7 +340,7 @@ verschiedene Situationen zu Betrachten und jeweils entsprechend zu reagieren \ci
 \begin{description}
     \item[App wird durch eine Benachrichtigung gestartet]
     Läuft die App nicht, so werden bereits geplante Benachrichtigungen durch das Betriebssystem angezeigt.
-    Klickt der Nutzer auf diese, so wird dadurch die App gestartet.
+    Klickt der Nutzer auf diese, wird die App gestartet.
     In der App wird dafür gesorgt, dass die Benachrichtigung entfernt wird.
 
     \item[App wird durch eine Benachrichtigung geöffnet]
@@ -364,21 +364,21 @@ Für jedes dieser Situationen wird im \texttt{NotificationService} ein sogenannt
 In der Hauptkomponente \texttt{App.tsx} werden diese beim Start registiert und bei Beendigung abgemeldet.
 
 \subsubsection{Tatsächliche Benachrichtigungen}
-Wie auch schon bei der Zeiterfassung ist bei den Benachrichtigungen zwischen endloser und einer Intervall-Kategorien zu unterscheiden.
+Wie auch schon bei der Zeiterfassung ist bei den Benachrichtigungen zwischen endloser und einer Intervall-Kategorie zu unterscheiden.
 Bei einer endlosen Zeiterfassung wird angenommen,
 dass man sich am Tagesbeginn im \enquote{Unterstunden-Bereich} befindet.
-Startet der Nutzer Zeitmessung wird ermittelt wie lange diese laufen muss,
+Startet der Nutzer die Zeitmessung, wird ermittelt wie lange diese laufen muss,
 bis die Unterstunden \enquote{abgearbeitet} sind.
 Für diesen Zeitpunkt wird eine entsprechende Benachrichtigung geplant.
 
 Im Fall der Intervall-Kategorie geschieht dies analog.
-Allerding berechnet wie lange die Messung laufen müsste,
+Allerding wird berechnet, wie lange die Messung laufen müsste,
 um ausgehend vom akutellen Stand das Ziel zu erreichen.
 
 In beiden Fällen wird die geplante Benachrichtigung abgebrochen,
 sobald der Nutzer die Zeiterfassung pausiert.
 
-Zusätzlich zu den implementierten Benachrichtigungen sind noch weitere denkbar.
+Zusätzlich zu den implementierten Benachrichtigungen sind noch weitere Fälle denkbar.
 Beispielsweise könnte in regelmäßigien Abständen an Pausen erinnert werden
 oder nicht nur beim Erreichen von \enquote{0 Unterstunden},
 sondern auch beim Erreichen der Sollarbeitszeit für diesen Tag eine Benachrichtigung erfolgen.

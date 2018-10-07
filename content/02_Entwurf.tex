@@ -3,7 +3,7 @@
 \subsection{Entscheidungen}
 \paragraph{UI-Bibliothek}
 Im Unternehmen der beiden Autoren findet zeitgleich zu diesem Programmentwurf durch Kollegen ein Umbau der Web-Applikation hin zu React und Redux statt.
-Um Synnergien zu nutzen und einen Transfer in die Praxis zu ermöglichen soll daher der Prototyp dieses Programmentwurfs auf ähnlichen Technologien basieren.
+Um Synnergien zu nutzen und einen Transfer in die Praxis zu ermöglichen, soll daher der Prototyp dieses Programmentwurfs auf ähnlichen Technologien basieren.
 Da das Ziel dieses Programmentwurfs eine Mobile Applikation ist, ergeben sich aus dieser Anforderung folgende Möglichkeiten:
 \begin{itemize}
     \item (Progressive) Web App mittles React (Web)
@@ -12,21 +12,20 @@ Da das Ziel dieses Programmentwurfs eine Mobile Applikation ist, ergeben sich au
 \end{itemize}
 
 Aus diesen drei Alternativen ist React Native am nächsten an einer nativen Anwendung.
-Im Gegensatz zu PhoneGap wird kein Webview in einer nativen Anwendung genutzt um eine Webapp darzustellen,
+Im Gegensatz zu PhoneGap wird kein Webview in einer nativen Anwendung genutzt,
 sondern es werden tatsächliche native UI-Elemente verwendet.
-Dadurch fühlt sich die Anwendung nativer an.
-Somit fällt hier die Entscheidung auf React Native.
+Dadurch erhält die Anwendung das \quote{Look\&Feel} einer nativen Anwendung. Aus diesen Gründen fällt die Entscheidung auf React-Native.
 
 \paragraph{Firebase-Bibliothek}
 Da auch die Nutzung von Googles \textit{Firebase}-Plattform bereits als Anforderung gestellt ist,
 gilt es auch hier eine Entscheidung zu treffen.
 
-Google bietet zu Nutzung von Firebase verschiedene Bibliotheken an.
+Google bietet zur Nutzung von Firebase verschiedene Bibliotheken an.
 Dazu zählen eine Bibliothek für Web- bzw. JavaScript-Anwendungen und eine für Android-Anwendungen.
 React Native ist als hybride App jedoch ein Teil von beidem.
 
 Einerseits lässt sich die Web-Bibliothek relativ leicht einbinden.
-Andereseits könnten sich Funktionalitäten wie Benachrichtigunen schwieriger gestalten.
+Andereseits könnten Funktionalitäten wie Benachrichtigungen schwieriger in der Einbindung und Umsetzung sein.
 
 Die Android-Bibliothek ist deutlich näher am Gerät, wodurch Gerätefunktionalitäten besser genutzt werden können.
 Allerdings besteht hier der Aufwand die Funktionen nativ zu implementieren und in React-Natives-JavaScript zu nutzen.
@@ -35,7 +34,7 @@ Das Beste aus diesen beiden Welten verbindet die Bibliothek \textit{React Native
 Sie stellt eine Zwischenschicht zur Verfügung um auf einfache Weise mit JavaScript-Code auf die native Firebase-Bibliothek zuzugreifen.
 Die Bibliothek ist modular aufgebaut, sodass nur die benötigten Funktionalitäten zur Applikation hinzugefügt werden.
 Das initiale Einrichten, sowie das hinzufügen bestimmter Module gestaltet sich etwas aufwändiger als die Nutzung der Web-Bibliothek.
-Dieses Problem wird jedoch detaillierte Anleitungen kompensiert.
+Dieses Problem wird jedoch durch detaillierte Anleitungen kompensiert.
 
 \paragraph{Firebase-Datenbank}
 Firebase stellt zwei mögliche Datenbanken zur Verfügung \cite{ChooseaD77:online}.
@@ -46,17 +45,16 @@ Im Vergleich dazu werden die Daten im \textit{Cloud Firestore} geordneter darges
 Eine Datenbank besteh aus \textit{Sammlungen}, welche JSON-ähnliche \textit{Dokumente} enthalten.
 Dokumente können wiederum Sammlungen enthalten.
 Nachteilig am \textit{Cloud Firestore} ist, dass sich dieser noch im Beta-Stadium befindet.
-Daher ist es möglich, dass diese Datenbank nicht völlig stabil ist.
+Daher ist es möglich, dass diese Datenbank nicht vollständig stabil ist.
 
-Das Ergebnis dieses Programmentwurfs soll keine produktive Applikation, sondern ein Prototyp sein.
-Außerdem ist es ein Teilziel neue Technologien anzuwenden.
-Aus diesen Gründen wird in dieser Andwendung der \textit{Cloud Firestore} genutzt.
+Da ein Teilziel dieser Seminararbeit das Erlernen neuer Technologien ist und die Möglichkeiten von \textit{Cloud Firestore} sehr vielversprechend sind, 
+wird dieser in der Applikation verwendet. 
 
 \subsection{Oberflächengestaltung}
 Die Gestaltung der Oberflächen orientiert sich an den \textit{Material Design}-Richtlinien von Google.
 Auf \cite{DesignMa49:online} werden Richtlinien und Konzepte vorgegeben,
-welche Entscheidungen bei der Oberflächengestaltung abnehmen.
-Die zudem vorhandene Übersicht an Komponenten lässt sich nutzen um passende Komponenten für einen Anwendungsfall zu finden.
+welche einige Entscheidungen bei der Oberflächengestaltung vereinfachen.
+Die zudem vorhandene Übersicht an Komponenten, lässt sich nutzen um passende Komponenten für diesen Anwendungsfall zu finden.
 
 Um erste Ideen für die Oberflächengestaltung zu sammeln,
 werden mit Hilfe des Tools \textit{Fluid UI} \cite{FluidUIc8:online} sogenannte UI-Mockups erstellt.
