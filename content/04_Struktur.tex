@@ -1,7 +1,7 @@
 \section{Verzeichnisstruktur}
 In \autoref{fig-verzeichnis} sind die ersten zwei Ebenen der Verzeichnisstruktur dargestellt.
 Auf die Auflistung automatisch erstellter und nicht veränderter Dateien wird verzichtet.
-Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
+Der Zweck der einzelnen Ordner und Dateien wird im Folgenden beschrieben.
 
 \begin{figure}[H]
     \centering
@@ -56,7 +56,8 @@ Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
     Diese Datei wird genutzt um TypeScript-Typen der gesamten Anwendung zur Verfügung zu stellen.
     Hierdurch wird die Arbeit mit komplexeren Datentypen erheblich erleichtert.
     \item[index.js]
-    In der Datei wird die Anwendung \enquote{registiert}. Hierdurch werden die React-Native-Komponenten mit der nativen Applikation verknüpft.
+    In der Datei wird die Anwendung \enquote{registriert}.
+    Hierdurch werden die React-Native-Komponenten mit der nativen Applikation verknüpft.
     Diese automatisch generierte Funktion wird ergänzt durch einen sogenannten \emph{Polyfill}, der genutzt wird,
     um fehlende JavaScript-Funktionalitäten zu ermöglichen. \cite{undefine14:online}
     \item[android]
@@ -64,12 +65,12 @@ Der Zweck der Einzelnen Ordner und Dateien wird im Folgenden beschrieben.
     Wird nativer Code - beispielsweise von React-Native-Firebase - genutzt,
     so muss er hier hinzugefügt werden.
     \item[ios]
-    Dieser Ordner ist das Pendant zum vorigem Ordner.
+    Dieser Ordner ist das Pendant zum vorigen Ordner.
     Da sich dieser Programmentwurf auf Android-Geräte beschränkt,
     bleibt er von manuellen Eingriffen unberührt.
     \item[src]
     In diesem Ordner befindet sich der größte Teil des relevanten Quellcodes.
-    Dessen Inhalt wird im folgenden näher betrachtet.
+    Dessen Inhalt wird im Folgenden näher betrachtet.
 \end{description}
 
 \subsection{src-Ordner}
@@ -80,13 +81,13 @@ Der Redux-Store wird in einer eigenen Datei \texttt{store.ts} verwaltet.
 Dort werden die Reducer und die Redux-Saga miteinander verknüpft.
 
 Reducer, Aktionen, Komponenten, Container und Sagas befinden sich in ihren jeweiligen Ordnern.
-Dort werden sie nochmals nach ihren Anwendungsfällen (z.B. Authentifizierung, freite Tage, ...) geordnet.
+Dort werden sie nochmals nach ihren Anwendungsfällen (z.B. Authentifizierung, freie Tage, ...) geordnet.
 
 Im Ordner \texttt{api} werden alle Schnittstellen nach Außen gekapselt.
 So werden eventuell komplexere Schnittstellen abstrahiert.
 
 \texttt{assets} enthält alle \enquote{nicht-textuelle} Dateien wie Bilder oder Videos.
-In dieser Applikation ist dies aktuell auf das Logo beschränkt.
+In dieser Applikation ist dies aktuell lediglich das Logo.
 
 Formulare stellen eine besondere Art von Komponenten dar.
 Sie werden durch die Funktionalitäten der Bibliothek \emph{redux-forms} verwaltet.
