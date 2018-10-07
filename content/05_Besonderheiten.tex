@@ -260,7 +260,7 @@ In \cite{Timersin85:online} werden drei Alternativen vorgestellt um dieses Probl
 
 Da es sich in diesem Beispiel um eine reine Darstellung handelt,
 wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} auf den Anwendungsfall angepasst wird.
-\autoref{lst:timer} zeigt den Quellcode der Klasse \texttt{Timer} mit folgenden Aspekten:
+In \autoref{app-timer} ist der Quellcode der Klasse \texttt{Timer} mit folgenden Aspekten dargestellt:
 \begin{description}
     \item[Props] Dies sind die Eigenschaften, welche vom Elternelement übergeben werden.
     \texttt{startTime} ist die Zeit, ab welcher der Timer läuft.
@@ -281,14 +281,6 @@ wird Variante 1 implementiert, indem das Beispiel aus \cite{Timersin85:online} a
         \item Wird der Timer entfernt, so wird das Intervall gestoppt.
     \end{enumerate}
 \end{description}
-
-\lstinputlisting[
-    caption={Timer.tsx},
-    label=lst:timer,
-    language=TypeScript,
-    firstnumber=5,
-    firstline=5
-]{Timer.tsx}
 
 \subsection{Benachrichtigungen}\label{sec:besonderheiten-benachrichtigung}
 Zur Darstellung der lokalen Benachrichtigungen wird das \emph{Notifications}-Modul von \emph{React Native Firebase} genutzt.
