@@ -1,43 +1,45 @@
 \section{Einleitung}\label{sec:einleitung}
 \subsection{Problemstellung}
-Während eines Dualen Masterstudiums ist das Zeitenmanagement sehr wichtig. Meistens wird die 
-Arbeitszeit auf 80\% reduziert, um Zeit für Vorlesungen, Seminararbeiten und Klausuren zu schaffen. 
+Während eines Dualen Masterstudiums ist das Zeitenmanagement sehr wichtig. Häufig reduzieren die Studenten
+ihre Arbeitszeit auf 80\%, um Zeit für Vorlesungen, Seminararbeiten und Klausuren zu schaffen.
 Dabei kann es allerdings vorkommen, dass in manchen Wochen Überstunden aufgebaut werden, die in beispielsweise
-Klausurwochen wieder abgebaut werden können. Die App soll es ermöglichen einen Überblick über die 
-Überstunden bzw. Minusstunden zu behalten.\\
-Die bisherige Alternative zur Lösung des Problems sind Excel-Tabellen. Diese haben allerdings den Nachteil,
-dass man selbst die Einträge Pflegen muss und meist zu viele Funktionalitäten bieten. Dadurch wird das Zeitenmanagement
-nur nur aufwändig sondern auch komplex. \\
-Die App soll das Problem so lösen, dass der regelmäßige Aufwand sehr gering ist. Zusätzlich soll die App die Möglichkeit bieten, 
+Klausurwochen wieder abgebaut werden. Die App soll es ermöglichen einen Überblick über die
+Über- bzw. Minusstunden zu behalten.
+
+Die bisherige Alternative zur Lösung des Problems sind oftmals Excel-Tabellen.
+Diese haben allerdings den Nachteil, dass man selbst die Einträge Pflegen muss und meist zu viele Funktionalitäten bieten.
+Dadurch wird das Zeitenmanagement nur nur aufwändig sondern auch unnötig komplex.
+
+Die App soll das Problem so lösen, dass der regelmäßige Aufwand sehr gering ist. Zusätzlich soll die App die Möglichkeit bieten,
 durch setzen von Zeitzielen zum Lernen zu motivieren.
 
 \subsection{Anforderungen}
 \paragraph{Benutzerverwaltung}
-Mit der App muss es möglich sein, einen Benutzer neu zu registrieren oder mit einem bereits 
-vorhandenen Account anzumelden. 
+Mit der App muss es möglich sein, einen Benutzer neu zu registrieren oder mit einem bereits
+vorhandenen Account anzumelden.
 Die dafür notwendigen Daten müssen auf der Firebase Datenbank gespeichert werden.
-Es soll zusätzlich möglich sein, den Benutzernamen nach der Registrierung zu verändern. 
+Es soll zusätzlich möglich sein, den Benutzernamen nach der Registrierung zu verändern.
 \paragraph{Konfiguration verschiedener Zeiterfassungskategorien}
-Zeiten die erfasst werden, sollen in benutzerspezifischen Kategorien organisiert sein. 
-Es soll zwei Kategorietypen geben: 
+Zeiten, die erfasst werden, sollen in benutzerspezifischen Kategorien organisiert sein.
+Es soll zwei Kategorietypen geben:
 \begin{itemize}
-    \item \textbf{Endlose Zeiterfassung (Arbeitszeit-Szenario):} Hierfür werden 
-    Informationen wie Arbeitsstunden pro Woche und Arbeitstage benötigt. Die Zeiterfassung soll 
-    hier niemals zurück gesetzt werden.
-    \item \textbf{Intervall Zeiterfassung (Lernzeit-Szenario):} Hierbei geht es darum, eine 
-    Zielstundenzahl anzugeben die in einer bestimmten Zeit geleistet werden soll. Nach Ablauf dieses Intervalls 
-    wird die Gesamtzeit wieder zurückgesetzt und die Zeiterfassung beginnt von vorne. 
-\end{itemize} 
-Neben den bisher genannten Eigenschaften, sollen auch erfassungsfreie Tage gepflegt werden können. Diese sollen 
-sowohl manuell eintragbar sein, zum Beispiel für Urlaubstage. Zusätzlich soll es die Möglichkeit geben, 
-Feiertage zu importieren, um den Pflegeaufwand für den Benutzer möglichst zu reduzieren.
+    \item \textbf{Endlose Zeiterfassung (Arbeitszeit-Szenario):} Hierfür werden
+    Informationen wie Arbeitsstunden pro Woche und Arbeitstage benötigt.
+    Hier soll das \enquote{Stundenkonto} auf die geforderte Arbeitszeit angepasst werden.
+    \item \textbf{Intervall-Zeiterfassung (Lernzeit-Szenario):} Hierbei geht es darum, eine
+    Zielstundenzahl anzugeben die in einer bestimmten Zeit geleistet werden soll. Nach Ablauf dieses Intervalls
+    wird die Gesamtzeit wieder zurückgesetzt und die Zeiterfassung beginnt von vorne.
+\end{itemize}
+\paragraph{Erfassungsfreie Tage}
+Neben den bisher genannten Eigenschaften, sollen auch erfassungsfreie Tage gepflegt werden können. Diese sollen
+sowohl manuell eintragbar sein (zum Beispiel für Urlaubstage). Zusätzlich soll es die Möglichkeit geben,
+Feiertage zu importieren, um den Aufwand für den Benutzer möglichst gering zu halten.
 \paragraph{Zeiterfassung}
-Die Zeiterfassung, muss einer Kategorie zugeordnet sein. Der Benutzer soll die Erfassung starten und stoppen können. 
-Zusätzlich soll es auch nachträglich möglich sein, weitere Zeiten in die Erfassung manuell einzugeben. 
-Der Benutzer erhält als Ergebnis die aktuelle Positiv- oder Negativzeit. 
+Die Zeiterfassung, muss einer Kategorie zugeordnet sein. Der Benutzer soll die Erfassung starten und stoppen können.
+Zusätzlich soll es auch nachträglich möglich sein, weitere Zeiten in die Erfassung manuell einzugeben.
+Der Benutzer erhält als Ergebnis bei endloser Zeiterfassung das Stundenkonto und bei Intervall-Zeiterfassung die in diese Intervall geleistete Zeit.
 \paragraph{Darstellung der Ergebnisse}
-Die Ergebnisse der Zeiterfassung sollen für den Benutzer in einer Übersicht und in einer Detailansicht 
-verfügbar sein. Zusätzlich soll der Benutzer über Push-Benachrichtungen über das Erreichen eines Zieles 
-imformiert werden. 
+Die Ergebnisse der Zeiterfassung sollen für den Benutzer in einer Übersicht und in einer Detailansicht verfügbar sein.
+Zusätzlich soll der Benutzer über Push-Benachrichtungen über das Erreichen eines Zieles imformiert werden.
 \paragraph{Datenspeicherung}
-Die Daten sollen in einer Firebase-Datenbank gespeichert werden. 
+Die Daten sollen in einer Firebase-Datenbank gespeichert werden.

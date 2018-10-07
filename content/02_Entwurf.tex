@@ -3,7 +3,7 @@
 \subsection{Entscheidungen}
 \paragraph{UI-Bibliothek}
 Im Unternehmen der beiden Autoren findet zeitgleich zu diesem Programmentwurf durch Kollegen ein Umbau der Web-Applikation hin zu React und Redux statt.
-Um Synnergien zu nutzen und einen Transfer in die Praxis zu ermöglichen soll daher der Prototyp dieses Programmentwurfs auf den gleichen Technologien basieren.
+Um Synnergien zu nutzen und einen Transfer in die Praxis zu ermöglichen soll daher der Prototyp dieses Programmentwurfs auf ähnlichen Technologien basieren.
 Da das Ziel dieses Programmentwurfs eine Mobile Applikation ist, ergeben sich aus dieser Anforderung folgende Möglichkeiten:
 \begin{itemize}
     \item (Progressive) Web App mittles React (Web)
@@ -13,7 +13,7 @@ Da das Ziel dieses Programmentwurfs eine Mobile Applikation ist, ergeben sich au
 
 Aus diesen drei Alternativen ist React Native am nächsten an einer nativen Anwendung.
 Im Gegensatz zu PhoneGap wird kein Webview in einer nativen Anwendung genutzt um eine Webapp darzustellen,
-sonder es werden tatsächliche native UI-Elemente verwendet.
+sondern es werden tatsächliche native UI-Elemente verwendet.
 Dadurch fühlt sich die Anwendung nativer an.
 Somit fällt hier die Entscheidung auf React Native.
 
@@ -22,14 +22,14 @@ Da auch die Nutzung von Googles \textit{Firebase}-Plattform bereits als Anforder
 gilt es auch hier eine Entscheidung zu treffen.
 
 Google bietet zu Nutzung von Firebase verschiedene Bibliotheken an.
-Dazu zählen eine Bibliothek für Web- bzw. JavaScript-Anwendungen und eine für Android und iOS-Anwendungen.
-React Native ist als hybride App ein Teil von beidem.
+Dazu zählen eine Bibliothek für Web- bzw. JavaScript-Anwendungen und eine für Android-Anwendungen.
+React Native ist als hybride App jedoch ein Teil von beidem.
 
 Einerseits lässt sich die Web-Bibliothek relativ leicht einbinden.
 Andereseits könnten sich Funktionalitäten wie Benachrichtigunen schwieriger gestalten.
 
-Die Android-Bibliothek ist deutlich näher am Gerät, wodurch Funktionalitäten besser genutzt werden können.
-Allerdings besteht hier der Aufwand die Funktionen nativ zu implementieren und React-Natives-JavaScript zu nutzen.
+Die Android-Bibliothek ist deutlich näher am Gerät, wodurch Gerätefunktionalitäten besser genutzt werden können.
+Allerdings besteht hier der Aufwand die Funktionen nativ zu implementieren und in React-Natives-JavaScript zu nutzen.
 
 Das Beste aus diesen beiden Welten verbindet die Bibliothek \textit{React Native Firebase} \cite{invertas78:online}.
 Sie stellt eine Zwischenschicht zur Verfügung um auf einfache Weise mit JavaScript-Code auf die native Firebase-Bibliothek zuzugreifen.
